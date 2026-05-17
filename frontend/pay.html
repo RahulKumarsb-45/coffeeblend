@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/5c5946fe44.js" crossorigin="anonymous"></script>
+  <title>Pay Page - CoffeeBlend</title>
+  <style>
+    body { background: #f8f9fa; }
+    .pay-card {
+      max-width: 520px;
+      margin: 60px auto;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+      border: none;
+      overflow: hidden;
+    }
+    .pay-header {
+      background: #212529;
+      color: white;
+      padding: 28px 32px 20px;
+    }
+    .pay-header h4 { margin: 0; font-weight: 600; letter-spacing: 0.5px; }
+    .pay-header p  { margin: 6px 0 0; opacity: 0.7; font-size: 14px; }
+    .pay-body { padding: 28px 32px; background: white; }
+    .order-summary-row {
+      display: flex; justify-content: space-between;
+      padding: 7px 0; font-size: 15px;
+    }
+    .order-summary-row.total {
+      border-top: 2px solid #dee2e6;
+      margin-top: 8px; padding-top: 12px;
+      font-weight: 700; font-size: 17px;
+    }
+    #paypal-button-container { margin-top: 20px; min-height: 50px; }
+    .secure-badge {
+      text-align: center; margin-top: 16px;
+      color: #888; font-size: 12px;
+    }
+    #success-box, #cancel-box, #loading-box { display: none; }
+    #login-warning { display: none; }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand text-white" href="index.html">☕ CoffeeBlend</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link text-white" href="cart.html">🛒 Cart</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="checkout.html">Checkout</a></li>
+        <li class="nav-item" id="nav-login-item"><a class="nav-link text-white" href="login.html" id="nav-login-link">Login</a></li>
+        <li class="nav-item" id="nav-register-item"><a class="nav-link text-white" href="register.html" id="nav-register-link">Register</a></li>
+        <li class="nav-item dropdown" id="nav-user-dropdown" style="display:none;">
+          <a href="#" class="nav-link text-white dropdown-toggle cb-user-toggle" id="cb-user-menu" role="button" aria-expanded="false">
+            <span style="font-size:1.1em;vertical-align:middle;">👤</span>
+            <span id="cb-username-display" style="margin-left:4px;vertical-align:middle;font-size:0.97em;"></span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end cb-user-dropdown-menu" aria-labelledby="cb-user-menu">
+            <li><a class="dropdown-item" href="profile.html">My Profile</a></li>
+            <li><a class="dropdown-item" href="orders.html">My Orders</a></li>
+            <li><a class="dropdown-item" href="bookings.html">My Bookings</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item cb-logout-btn" href="#">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- Login Warning -->
+  <div id="login-warning" class="alert alert-warning mt-4 text-center">
+    ⚠️ Please <a href="login.html">login</a> before paying.
+  </div>
+
+  <!-- Empty Cart Warning -->
+  <div id="empty-warning" class="alert alert-info mt-4 text-center" style="display:none;">
+    🛒 Your cart is empty. <a href="menu.html">Browse menu →</a>
+  </div>
+
+  <!-- Pay Card -->
+  <div class="pay-card" id="pay-card">
+    <div class="pay-header">
+      <h4><i class="fas fa-lock me-2"></i>Secure Payment</h4>
+      <p>Powered by PayPal — your info is safe</p>
+    </div>
+    <div class="pay-body">
+
+      <!-- Order Summary -->
+      <h6 class="mb-3 text-muted" style="font-size:13px;text-transform:uppercase;letter-spacing:1px;">Order Summary</h6>
+      <div id="order-items">
+        <div class="text-center text-muted py-3">
+          <div class="spinner-border spinner-border-sm" role="status"></div> Loading cart...
+        </div>
+      </div>
+      <div class="order-summary-row total">
+        <span>Total</span>
+        <span id="total-display">$0.00</span>
+      </div>
+
+      <!-- PayPal Button -->
+      <div id="paypal-button-container"></div>
+
+      <!-- SDK load error -->
+      <div id="sdk-error" class="alert alert-danger mt-3" style="display:none;">
+        ⚠️ PayPal could not be loaded. Check your internet connection and try again.
+      </div>
+
+      <!-- Loading state -->
+      <div id="loading-box" class="text-center py-3">
+        <div class="spinner-border text-warning" role="status"></div>
+        <p class="mt-2 text-muted">Processing payment...</p>
+      </div>
+
+      <!-- Success -->
+      <div id="success-box" class="alert alert-success mt-3">
+        <h5>✅ Payment Successful!</h5>
+        <p class="mb-1"><strong>Order ID:</strong> <span id="txn-id"></span></p>
+        <p class="mb-1"><strong>Paid by:</strong> <span id="payer-name"></span> (<span id="payer-email"></span>)</p>
+        <p class="mb-1"><strong>Amount:</strong> $<span id="paid-amount"></span></p>
+        <a href="index.html" class="btn btn-success btn-sm mt-2">Back to Home</a>
+      </div>
+
+      <!-- Cancel -->
+      <div id="cancel-box" class="alert alert-warning mt-3">
+        <h5>⚠️ Payment Cancelled</h5>
+        <p>You cancelled the payment. Your cart is still saved.</p>
+        <a href="checkout.html" class="btn btn-warning btn-sm">Try Again</a>
+      </div>
+
+      <div class="secure-badge">
+        <i class="fas fa-shield-alt me-1"></i> 256-bit SSL encryption &nbsp;|&nbsp;
+        <i class="fab fa-paypal me-1"></i> PayPal protected
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/api.js"></script>
+
+<script>
+(async function () {
+  const API_BASE = 'http://localhost:5000/api';
+
+  /* ── 1. Login check ── */
+  if (!API.auth.isLoggedIn()) {
+    document.getElementById('login-warning').style.display = 'block';
+    document.getElementById('pay-card').style.display = 'none';
+    return;
+  }
+
+  /* ── 2. Cart check ── */
+  const cartItems = API.cart.getLocal();
+  if (!cartItems || cartItems.length === 0) {
+    document.getElementById('empty-warning').style.display = 'block';
+    document.getElementById('pay-card').style.display = 'none';
+    return;
+  }
+
+  const total = API.cart.getTotal();
+
+  /* ── 3. Render order summary ── */
+  document.getElementById('order-items').innerHTML = cartItems.map(item => `
+    <div class="order-summary-row">
+      <span>${item.name} <span class="text-muted">x${item.quantity}</span></span>
+      <span>$${(item.price * item.quantity).toFixed(2)}</span>
+    </div>`).join('');
+  document.getElementById('total-display').textContent = '$' + total.toFixed(2);
+
+  /* ── 4. Get PayPal Client ID ──
+       Try backend first; if it fails use sandbox 'sb'             */
+  let PAYPAL_CLIENT_ID = 'ARvuPztXhNGng2KSoUCgo8qmhA_ssL3SGtrsutT__ypYdW7A5T429mAUoCjvI0FAK9kGAxyvL7eFjp1z';
+  try {
+    const cfg = await fetch(`${API_BASE}/payment/config`);
+    if (cfg.ok) {
+      const data = await cfg.json();
+      if (data.clientId) PAYPAL_CLIENT_ID = data.clientId;
+    }
+  } catch (e) {
+    console.warn('PayPal config fetch failed — using sandbox mode');
+  }
+
+  /* ── 5. Load PayPal SDK ── */
+  try {
+   await new Promise((resolve, reject) => {
+
+  if (window.paypal) {
+    resolve();
+    return;
+  }
+
+  const existingScript = document.querySelector('#paypal-sdk');
+
+  if (existingScript) {
+    existingScript.onload = resolve;
+    existingScript.onerror = reject;
+    return;
+  }
+
+  const script = document.createElement('script');
+
+  script.id = 'paypal-sdk';
+
+  script.src =
+    'https://www.paypal.com/sdk/js?client-id=' +
+    PAYPAL_CLIENT_ID +
+    '&currency=USD';
+
+  script.async = true;
+
+  script.onload = () => {
+    if (window.paypal) resolve();
+    else reject(new Error('PayPal SDK failed'));
+  };
+
+  script.onerror = () => reject(new Error('SDK Load Error'));
+
+  document.body.appendChild(script);
+  
+});
+
+console.log('PayPal Loaded:', !!window.paypal);
+console.log('Client ID:', PAYPAL_CLIENT_ID);
+
+
+ } catch (e) {
+    document.getElementById('paypal-button-container').style.display = 'none';
+    document.getElementById('sdk-error').style.display = 'block';
+    return;
+  }
+
+  /* ── 6. Render PayPal Buttons ── */
+  paypal.Buttons({
+
+    style: { layout: 'vertical', color: 'gold', shape: 'rect', label: 'pay' },
+
+    /* createOrder:
+       - If backend is running  → call /payment/create-order
+       - If backend is down     → create order directly via PayPal JS SDK  */
+    createOrder: async (data, actions) => {
+      // Try backend first
+      try {
+        const token = API.getToken();
+        const res   = await fetch(`${API_BASE}/payment/create-order`, {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+          body:    JSON.stringify({ amount: total.toFixed(2), items: cartItems })
+        });
+        if (res.ok) {
+          const result = await res.json();
+          if (result.success && result.paypalOrderId) return result.paypalOrderId;
+        }
+      } catch (e) {
+        console.warn('Backend create-order failed — using client-side order creation');
+      }
+
+      // Fallback: create order directly on PayPal (works with sandbox 'sb')
+      return actions.order.create({
+        purchase_units: [{
+          amount: {
+            value: total.toFixed(2),
+            breakdown: {
+              item_total: { currency_code: 'USD', value: total.toFixed(2) }
+            }
+          },
+          items: cartItems.map(item => ({
+            name:      item.name,
+            quantity:  String(item.quantity),
+            unit_amount: { currency_code: 'USD', value: parseFloat(item.price).toFixed(2) }
+          }))
+        }]
+      });
+    },
+
+    /* onApprove:
+       - If backend is running  → call /payment/capture/:orderId
+       - If backend is down     → capture directly via PayPal JS SDK  */
+    onApprove: async (data, actions) => {
+      document.getElementById('paypal-button-container').style.display = 'none';
+      document.getElementById('loading-box').style.display = 'block';
+
+      let captured = null;
+
+      // Try backend capture first
+      try {
+        const token  = API.getToken();
+        const res    = await fetch(`${API_BASE}/payment/capture/${data.orderID}`, {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+          body:    JSON.stringify({
+            cartItems,
+            shippingAddress: JSON.parse(localStorage.getItem('cb_shipping') || '{}')
+          })
+        });
+        if (res.ok) {
+          const result = await res.json();
+          if (result.success) {
+            captured = {
+              id:    result.transactionId,
+              name:  result.payerName,
+              email: result.payerEmail,
+              amount: result.amount
+            };
+          }
+        }
+      } catch (e) {
+        console.warn('Backend capture failed — using client-side capture');
+      }
+
+      // Fallback: capture directly via PayPal SDK
+      if (!captured) {
+        try {
+          const details = await actions.order.capture();
+          const payer   = details.payer || {};
+          captured = {
+            id:     details.id,
+            name:   (payer.name ? payer.name.given_name + ' ' + payer.name.surname : 'Customer'),
+            email:  payer.email_address || '',
+            amount: total.toFixed(2)
+          };
+        } catch (e) {
+          document.getElementById('loading-box').style.display = 'none';
+          document.getElementById('paypal-button-container').style.display = 'block';
+          alert('Payment capture failed. Please try again.');
+          return;
+        }
+      }
+
+      /* ── Success ── */
+      document.getElementById('loading-box').style.display = 'none';
+      API.cart.clear();
+
+      document.getElementById('txn-id').textContent    = captured.id;
+      document.getElementById('payer-name').textContent  = captured.name;
+      document.getElementById('payer-email').textContent = captured.email;
+      document.getElementById('paid-amount').textContent = captured.amount;
+      document.getElementById('success-box').style.display = 'block';
+
+      // Save order to backend if possible (non-blocking)
+      try {
+        const token = API.getToken();
+        await fetch(`${API_BASE}/orders`, {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+          body:    JSON.stringify({
+            items:          cartItems.map(i => ({ name: i.name, price: i.price, quantity: i.quantity, image: i.image })),
+            shippingAddress: {},
+            paymentMethod:  'PayPal',
+            paypalOrderId:  captured.id
+          })
+        });
+      } catch (e) { /* backend down — order UI already shown */ }
+    },
+
+    onCancel: () => {
+      document.getElementById('cancel-box').style.display = 'block';
+    },
+
+    onError: (err) => {
+      console.error('PayPal error:', err);
+      document.getElementById('paypal-button-container').style.display = 'block';
+      alert('PayPal encountered an error. Please try again.');
+    }
+
+  }).render('#paypal-button-container');
+
+  /* ── Handle ?paypal=cancel redirect ── */
+  if (new URLSearchParams(window.location.search).get('paypal') === 'cancel') {
+    document.getElementById('cancel-box').style.display = 'block';
+  }
+
+})();
+</script>
+
+<style>
+  .cb-user-dropdown-menu {
+    background: #1a1a1a;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+    min-width: 180px;
+  }
+  .cb-user-dropdown-menu .dropdown-item {
+    color: #e0e0e0;
+    padding: 10px 18px;
+    font-size: 0.93em;
+  }
+  .cb-user-dropdown-menu .dropdown-item:hover {
+    background: #c49b63;
+    color: #fff;
+  }
+  .cb-user-dropdown-menu .dropdown-divider { border-color: #333; }
+</style>
+
+<script>
+(function () {
+  function cbUpdateNavbar() {
+    var token = localStorage.getItem('cb_token');
+    var userRaw = localStorage.getItem('cb_user');
+    var loginItem = document.getElementById('nav-login-item');
+    var registerItem = document.getElementById('nav-register-item');
+    var userDropdown = document.getElementById('nav-user-dropdown');
+    var usernameDisplay = document.getElementById('cb-username-display');
+    if (token && userRaw) {
+      try {
+        var user = JSON.parse(userRaw);
+        if (usernameDisplay) usernameDisplay.textContent = user.name || user.username || user.email || 'User';
+      } catch (e) { if (usernameDisplay) usernameDisplay.textContent = 'User'; }
+      if (loginItem) loginItem.style.display = 'none';
+      if (registerItem) registerItem.style.display = 'none';
+      if (userDropdown) userDropdown.style.display = '';
+    } else {
+      if (loginItem) loginItem.style.display = '';
+      if (registerItem) registerItem.style.display = '';
+      if (userDropdown) userDropdown.style.display = 'none';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    cbUpdateNavbar();
+    var toggle = document.getElementById('cb-user-menu');
+    var menu = document.querySelector('.cb-user-dropdown-menu');
+    if (toggle && menu) {
+      toggle.addEventListener('click', function (e) {
+        e.preventDefault(); e.stopPropagation();
+        var isOpen = menu.classList.contains('show');
+        menu.classList.toggle('show', !isOpen);
+        toggle.setAttribute('aria-expanded', !isOpen);
+      });
+      document.addEventListener('click', function (e) {
+        if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+          menu.classList.remove('show');
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { menu.classList.remove('show'); }
+      });
+    }
+    document.querySelectorAll('.cb-logout-btn').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        localStorage.removeItem('cb_token');
+        localStorage.removeItem('cb_user');
+        localStorage.removeItem('cb_cart');
+        cbUpdateNavbar();
+        window.location.href = 'index.html';
+      });
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

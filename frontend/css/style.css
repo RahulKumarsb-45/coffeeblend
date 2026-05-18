@@ -9318,3 +9318,16 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+
+.home-slider .slider-item {
+  touch-action: pan-y !important;
+}
+
+.owl-carousel .owl-stage {
+  touch-action: pan-y !important;
+}
+
+.owl-carousel .owl-item {
+  touch-action: pan-y !important;
+}

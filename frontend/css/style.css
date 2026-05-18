@@ -9282,34 +9282,23 @@ textarea.form-control {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -136px; } }
 
-    
-html,
+  html,
 body {
   overflow-x: hidden !important;
-  overflow-y: auto !important;
   width: 100%;
   max-width: 100%;
 }
 
 .owl-carousel.home-slider,
-.owl-carousel.home-slider .slider-item,
-.owl-carousel.home-slider .slider-text {
+.owl-carousel.home-slider .slider-item {
+  min-height: 100vh;
   height: auto !important;
-  min-height: 100vh !important;
 }
 
-.owl-stage-outer {
-  overflow: hidden !important;
-}
-
-.ftco-intro,
-.ftco-section,
-.ftco-about,
 .container,
 .container-fluid,
 .row {
-  max-width: 100% !important;
-  overflow-x: hidden !important;
+  max-width: 100%;
 }
 
 img {

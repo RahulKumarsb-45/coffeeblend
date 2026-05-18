@@ -5,7 +5,7 @@
  */
 
 var API = {
-  // BASE_URL: 'http://localhost:5000/api',
+  
   BASE_URL: 'https://coffeeblend-y50o.onrender.com/api',
 
   getToken: function() { return localStorage.getItem('cb_token'); },

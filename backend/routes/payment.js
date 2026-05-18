@@ -53,13 +53,9 @@ router.post('/create-order', protect, async (req, res) => {
         locale: 'en-US',
         landing_page: 'BILLING',
         user_action: 'PAY_NOW',
-        // return_url: `${req.headers.origin || 'http://localhost:5000'}/frontend/checkout.html?paypal=success`,
-      return_url: 'https://coffeeblend-eight.vercel.app/checkout.html?paypal=success',
-
-       cancel_url: 'https://coffeeblend-eight.vercel.app/checkout.html?paypal=cancel'
-         
+        return_url: `${req.headers.origin || 'http://localhost:5000'}/frontend/checkout.html?paypal=success`,
+        cancel_url: `${req.headers.origin || 'http://localhost:5000'}/frontend/checkout.html?paypal=cancel`
       }
-
     });
 
     // Call PayPal API

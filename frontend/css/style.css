@@ -9282,11 +9282,24 @@ textarea.form-control {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -136px; } }
 
-  html,
+ html,
 body {
   overflow-x: hidden !important;
   width: 100%;
   max-width: 100%;
+  touch-action: auto !important;
+}
+
+body {
+  position: relative;
+}
+
+.owl-carousel,
+.owl-stage,
+.owl-stage-outer,
+.home-slider,
+.slider-item {
+  touch-action: pan-y !important;
 }
 
 .owl-carousel.home-slider,

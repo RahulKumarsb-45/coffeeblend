@@ -5,13 +5,13 @@
 
 (function (window) {
   'use strict';
-
-  var getBaseUrl = function () {
-    if (typeof window !== 'undefined' && window.location && window.location.origin && window.location.origin.startsWith('http')) {
-      return window.location.origin + '/api';
-    }
+var getBaseUrl = function () {
+  if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
     return 'http://localhost:5000/api';
-  };
+  }
+
+  return 'https://coffeeblend-gkhy.onrender.com/api';
+};
 
   var API = {
     BASE_URL: getBaseUrl(),

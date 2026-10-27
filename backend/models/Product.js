@@ -17,7 +17,7 @@ const ProductSchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    enum: ['coffee', 'drinks', 'desserts', 'burgers', 'dishes'],
+    enum: ['coffee', 'drinks', 'desserts', 'burgers', 'dishes', 'snacks', 'beverages'],
     required: true
   },
   image: {
@@ -31,6 +31,14 @@ const ProductSchema = new mongoose.Schema({
   isFeatured: {
     type: Boolean,
     default: false
+  },
+  customizations: {
+    sizes: [{
+      name: { type: String }, // e.g. 'Regular', 'Large'
+      priceExtra: { type: Number, default: 0 }
+    }],
+    milkOptions: [{ type: String }], // e.g. ['Whole Milk', 'Oat Milk', 'Almond Milk', 'Skim Milk']
+    sugarOptions: [{ type: String }] // e.g. ['No Sugar', 'Less Sugar', 'Normal Sugar', 'Extra Sugar']
   },
   createdAt: {
     type: Date,

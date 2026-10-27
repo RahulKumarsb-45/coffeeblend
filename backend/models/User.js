@@ -27,6 +27,31 @@ const UserSchema = new mongoose.Schema({
     enum: ['user', 'admin'],
     default: 'user'
   },
+  phone: {
+    type: String,
+    trim: true,
+    default: ''
+  },
+  address: {
+    type: String,
+    trim: true,
+    default: ''
+  },
+  city: {
+    type: String,
+    trim: true,
+    default: 'Mumbai'
+  },
+  pincode: {
+    type: String,
+    trim: true,
+    default: ''
+  },
+  loyaltyPoints: {
+    type: Number,
+    default: 0,
+    min: 0
+  },
   createdAt: {
     type: Date,
     default: Date.now

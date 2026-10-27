@@ -17,18 +17,10 @@ AOS.init({
     verticalOffset: 0,
   });
 
-  // Scrollax
-  $.Scrollax();
-
-  // var fullHeight = function() {
-
-  // 	$('.js-fullheight').css('height', $(window).height());
-  // 	$(window).resize(function(){
-  // 		$('.js-fullheight').css('height', $(window).height());
-  // 	});
-
-  // };
-  // fullHeight();
+  // Scrollax (guarded against missing plugin)
+  if (typeof $.Scrollax === "function") {
+    $.Scrollax();
+  }
 
   var fullHeight = function () {
     if ($(window).width() > 768) {
@@ -43,7 +35,7 @@ AOS.init({
   };
   fullHeight();
 
-  // loader
+  // loader with failsafe
   var loader = function () {
     setTimeout(function () {
       if ($("#ftco-loader").length > 0) {
@@ -52,9 +44,11 @@ AOS.init({
     }, 1);
   };
   loader();
+  setTimeout(loader, 1000);
 
-  // Scrollax
-  $.Scrollax();
+  if (typeof $.Scrollax === "function") {
+    $.Scrollax();
+  }
 
   var carousel = function () {
     $(".home-slider").owlCarousel({

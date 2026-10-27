@@ -5,38 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://kit.fontawesome.com/5c5946fe44.js" crossorigin="anonymous"></script>
-  <title>Pay Page - CoffeeBlend</title>
+  <title>Secure Payment — CoffeeBlend Mumbai</title>
   <style>
-    body { background: #f8f9fa; }
+    body { background: #111; color: #fff; font-family: 'Poppins', sans-serif; }
     .pay-card {
       max-width: 520px;
       margin: 60px auto;
       border-radius: 16px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.10);
-      border: none;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      border: 1px solid #282828;
       overflow: hidden;
+      background: #181818;
     }
     .pay-header {
-      background: #212529;
-      color: white;
+      background: #212121;
+      color: #fff;
       padding: 28px 32px 20px;
+      border-bottom: 1px solid #333;
     }
-    .pay-header h4 { margin: 0; font-weight: 600; letter-spacing: 0.5px; }
-    .pay-header p  { margin: 6px 0 0; opacity: 0.7; font-size: 14px; }
-    .pay-body { padding: 28px 32px; background: white; }
+    .pay-header h4 { margin: 0; font-weight: 600; letter-spacing: 0.5px; color: #c49b63; }
+    .pay-header p  { margin: 6px 0 0; opacity: 0.8; font-size: 14px; }
+    .pay-body { padding: 28px 32px; background: #181818; }
     .order-summary-row {
       display: flex; justify-content: space-between;
-      padding: 7px 0; font-size: 15px;
+      padding: 8px 0; font-size: 15px; color: #ccc;
     }
     .order-summary-row.total {
-      border-top: 2px solid #dee2e6;
-      margin-top: 8px; padding-top: 12px;
-      font-weight: 700; font-size: 17px;
+      border-top: 1px solid #333;
+      margin-top: 10px; padding-top: 14px;
+      font-weight: 700; font-size: 18px; color: #c49b63;
     }
-    #paypal-button-container { margin-top: 20px; min-height: 50px; }
+    #paypal-button-container { margin-top: 22px; min-height: 50px; }
     .secure-badge {
-      text-align: center; margin-top: 16px;
-      color: #888; font-size: 12px;
+      text-align: center; margin-top: 18px;
+      color: #777; font-size: 12px;
     }
     #success-box, #cancel-box, #loading-box { display: none; }
     #login-warning { display: none; }
@@ -46,7 +48,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-    <a class="navbar-brand text-white" href="index.html">☕ CoffeeBlend</a>
+    <a class="navbar-brand text-white" href="index.html">☕ CoffeeBlend Mumbai</a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item"><a class="nav-link text-white" href="cart.html">🛒 Cart</a></li>
@@ -86,8 +88,8 @@
   <!-- Pay Card -->
   <div class="pay-card" id="pay-card">
     <div class="pay-header">
-      <h4><i class="fas fa-lock me-2"></i>Secure Payment</h4>
-      <p>Powered by PayPal — your info is safe</p>
+      <h4><i class="fas fa-lock me-2"></i>Secure Online Payment</h4>
+      <p>CoffeeBlend Mumbai — Instant Order Confirmation</p>
     </div>
     <div class="pay-body">
 
@@ -95,47 +97,48 @@
       <h6 class="mb-3 text-muted" style="font-size:13px;text-transform:uppercase;letter-spacing:1px;">Order Summary</h6>
       <div id="order-items">
         <div class="text-center text-muted py-3">
-          <div class="spinner-border spinner-border-sm" role="status"></div> Loading cart...
+          <div class="spinner-border spinner-border-sm" role="status"></div> Loading order summary...
         </div>
       </div>
       <div class="order-summary-row total">
-        <span>Total</span>
-        <span id="total-display">$0.00</span>
+        <span>Total Payable</span>
+        <span id="total-display">₹0.00</span>
       </div>
 
-      <!-- PayPal Button -->
+      <!-- PayPal Button Container -->
       <div id="paypal-button-container"></div>
 
       <!-- SDK load error -->
       <div id="sdk-error" class="alert alert-danger mt-3" style="display:none;">
-        ⚠️ PayPal could not be loaded. Check your internet connection and try again.
+        ⚠️ PayPal gateway could not be loaded. Please ensure PayPal credentials are set in .env or choose Cash on Delivery at checkout.
       </div>
 
       <!-- Loading state -->
-      <div id="loading-box" class="text-center py-3">
+      <div id="loading-box" class="text-center py-4">
         <div class="spinner-border text-warning" role="status"></div>
-        <p class="mt-2 text-muted">Processing payment...</p>
+        <p class="mt-2 text-muted">Authorizing and confirming payment with CoffeeBlend...</p>
       </div>
 
-      <!-- Success -->
+      <!-- Success Box -->
       <div id="success-box" class="alert alert-success mt-3">
         <h5>✅ Payment Successful!</h5>
-        <p class="mb-1"><strong>Order ID:</strong> <span id="txn-id"></span></p>
+        <p class="mb-1"><strong>Transaction ID:</strong> <span id="txn-id"></span></p>
         <p class="mb-1"><strong>Paid by:</strong> <span id="payer-name"></span> (<span id="payer-email"></span>)</p>
-        <p class="mb-1"><strong>Amount:</strong> $<span id="paid-amount"></span></p>
-        <a href="index.html" class="btn btn-success btn-sm mt-2">Back to Home</a>
+        <p class="mb-1"><strong>Amount:</strong> <span id="paid-amount"></span></p>
+        <p class="text-muted mt-2" style="font-size:0.88rem;">Your order has been sent to our kitchen. Redirecting to your orders page...</p>
+        <a href="orders.html" class="btn btn-success btn-sm mt-2">View My Orders ☕</a>
       </div>
 
-      <!-- Cancel -->
+      <!-- Cancel Box -->
       <div id="cancel-box" class="alert alert-warning mt-3">
         <h5>⚠️ Payment Cancelled</h5>
-        <p>You cancelled the payment. Your cart is still saved.</p>
-        <a href="checkout.html" class="btn btn-warning btn-sm">Try Again</a>
+        <p>You cancelled the payment. Your cart has been saved.</p>
+        <a href="checkout.html" class="btn btn-warning btn-sm">Return to Checkout</a>
       </div>
 
       <div class="secure-badge">
         <i class="fas fa-shield-alt me-1"></i> 256-bit SSL encryption &nbsp;|&nbsp;
-        <i class="fab fa-paypal me-1"></i> PayPal protected
+        <i class="fab fa-paypal me-1"></i> Verified Merchant
       </div>
     </div>
   </div>
@@ -146,9 +149,6 @@
 
 <script>
 (async function () {
-  
-  const API_BASE = 'https://coffeeblend-gkhy.onrender.com/api';
-
   /* ── 1. Login check ── */
   if (!API.auth.isLoggedIn()) {
     document.getElementById('login-warning').style.display = 'block';
@@ -156,305 +156,149 @@
     return;
   }
 
-  /* ── 2. Cart check ── */
-  const cartItems = API.cart.getLocal();
+  /* ── 2. Cart & Payload check ── */
+  var cartItems = API.cart.getLocal();
+  var checkoutPayload = {};
+  try {
+    checkoutPayload = JSON.parse(localStorage.getItem('cb_checkout_payload') || '{}');
+  } catch(e) {}
+
   if (!cartItems || cartItems.length === 0) {
     document.getElementById('empty-warning').style.display = 'block';
     document.getElementById('pay-card').style.display = 'none';
     return;
   }
 
-  const total = API.cart.getTotal();
+  var subtotal = API.cart.getTotal();
+  var totalAmount = subtotal;
 
-  /* ── 3. Render order summary ── */
-  document.getElementById('order-items').innerHTML = cartItems.map(item => `
-    <div class="order-summary-row">
-      <span>${item.name} <span class="text-muted">x${item.quantity}</span></span>
-      <span>$${(item.price * item.quantity).toFixed(2)}</span>
-    </div>`).join('');
-  document.getElementById('total-display').textContent = '$' + total.toFixed(2);
+  /* ── 3. Render order summary in ₹ (INR) ── */
+  document.getElementById('order-items').innerHTML = cartItems.map(function (item) {
+    var lineTotal = parseFloat(item.price) * parseInt(item.quantity, 10);
+    return '<div class="order-summary-row">' +
+      '<span>' + item.name + ' <small class="text-muted">x' + item.quantity + '</small></span>' +
+      '<span>' + API.formatINR(lineTotal) + '</span>' +
+    '</div>';
+  }).join('');
 
-  /* ── 4. Get PayPal Client ID ──
-       Try backend first; if it fails use sandbox 'sb'             */
-  let PAYPAL_CLIENT_ID = 'ARvuPztXhNGng2KSoUCgo8qmhA_ssL3SGtrsutT__ypYdW7A5T429mAUoCjvI0FAK9kGAxyvL7eFjp1z';
+  document.getElementById('total-display').textContent = API.formatINR(totalAmount);
+
+  /* ── 4. Get PayPal Config from Backend ── */
+  var config = { clientId: '', currency: 'USD' };
   try {
-    const cfg = await fetch(`${API_BASE}/payment/config`);
-    if (cfg.ok) {
-      const data = await cfg.json();
-      if (data.clientId) PAYPAL_CLIENT_ID = data.clientId;
+    var cfgRes = await API.payment.getConfig();
+    if (cfgRes && cfgRes.success && cfgRes.clientId) {
+      config = cfgRes;
     }
   } catch (e) {
-    console.warn('PayPal config fetch failed — using sandbox mode');
+    console.warn('Backend PayPal config fetch failed');
+  }
+
+  if (!config.clientId) {
+    document.getElementById('paypal-button-container').style.display = 'none';
+    document.getElementById('sdk-error').style.display = 'block';
+    document.getElementById('sdk-error').innerHTML =
+      '⚠️ <strong>PayPal credentials not configured on backend.</strong><br>' +
+      'Please select <strong>Cash on Delivery / Pay at Counter</strong> on the checkout page, or add PAYPAL_CLIENT_ID to backend/.env.';
+    return;
   }
 
   /* ── 5. Load PayPal SDK ── */
   try {
-   await new Promise((resolve, reject) => {
+    await new Promise(function (resolve, reject) {
+      if (window.paypal) { resolve(); return; }
 
-  if (window.paypal) {
-    resolve();
-    return;
-  }
-
-  const existingScript = document.querySelector('#paypal-sdk');
-
-  if (existingScript) {
-    existingScript.onload = resolve;
-    existingScript.onerror = reject;
-    return;
-  }
-
-  const script = document.createElement('script');
-
-  script.id = 'paypal-sdk';
-
-  script.src =
-    'https://www.paypal.com/sdk/js?client-id=' +
-    PAYPAL_CLIENT_ID +
-    '&currency=USD';
-
-  script.async = true;
-
-  script.onload = () => {
-    if (window.paypal) resolve();
-    else reject(new Error('PayPal SDK failed'));
-  };
-
-  script.onerror = () => reject(new Error('SDK Load Error'));
-
-  document.body.appendChild(script);
-  
-});
-
-console.log('PayPal Loaded:', !!window.paypal);
-console.log('Client ID:', PAYPAL_CLIENT_ID);
-
-
- } catch (e) {
+      var script = document.createElement('script');
+      script.id = 'paypal-sdk';
+      script.src = 'https://www.paypal.com/sdk/js?client-id=' + config.clientId + '&currency=' + (config.currency || 'USD');
+      script.async = true;
+      script.onload = function () {
+        if (window.paypal) resolve();
+        else reject(new Error('PayPal SDK failed to load'));
+      };
+      script.onerror = function () { reject(new Error('PayPal SDK network error')); };
+      document.body.appendChild(script);
+    });
+  } catch (e) {
     document.getElementById('paypal-button-container').style.display = 'none';
     document.getElementById('sdk-error').style.display = 'block';
     return;
   }
 
+  // Calculate payment value in PayPal currency
+  // (In test mode, convert INR at approximate rate ~85 or use 1:1 if testing)
+  var paypalValue = (config.currency === 'INR') ? totalAmount.toFixed(2) : (totalAmount / 85).toFixed(2);
+  if (parseFloat(paypalValue) <= 0) paypalValue = '1.00';
+
   /* ── 6. Render PayPal Buttons ── */
   paypal.Buttons({
-
     style: { layout: 'vertical', color: 'gold', shape: 'rect', label: 'pay' },
 
-    /* createOrder:
-       - If backend is running  → call /payment/create-order
-       - If backend is down     → create order directly via PayPal JS SDK  */
-    createOrder: async (data, actions) => {
-      // Try backend first
+    createOrder: async function () {
       try {
-        const token = API.getToken();
-        const res   = await fetch(`${API_BASE}/payment/create-order`, {
-          method:  'POST',
-          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-          body:    JSON.stringify({ amount: total.toFixed(2), items: cartItems })
+        var res = await API.payment.createOrder({
+          amount: paypalValue,
+          items: cartItems
         });
-        if (res.ok) {
-          const result = await res.json();
-          if (result.success && result.paypalOrderId) return result.paypalOrderId;
+        if (res && res.success && res.paypalOrderId) {
+          return res.paypalOrderId;
         }
-      } catch (e) {
-        console.warn('Backend create-order failed — using client-side order creation');
+        throw new Error(res.message || 'Create order failed');
+      } catch (err) {
+        console.error('PayPal create error:', err);
+        alert('Could not initialize PayPal order: ' + err.message);
+        throw err;
       }
-
-      // Fallback: create order directly on PayPal (works with sandbox 'sb')
-      return actions.order.create({
-        purchase_units: [{
-          amount: {
-            value: total.toFixed(2),
-            breakdown: {
-              item_total: { currency_code: 'USD', value: total.toFixed(2) }
-            }
-          },
-          items: cartItems.map(item => ({
-            name:      item.name,
-            quantity:  String(item.quantity),
-            unit_amount: { currency_code: 'USD', value: parseFloat(item.price).toFixed(2) }
-          }))
-        }]
-      });
     },
 
-    /* onApprove:
-       - If backend is running  → call /payment/capture/:orderId
-       - If backend is down     → capture directly via PayPal JS SDK  */
-    onApprove: async (data, actions) => {
+    onApprove: async function (data) {
       document.getElementById('paypal-button-container').style.display = 'none';
       document.getElementById('loading-box').style.display = 'block';
 
-      let captured = null;
-
-      // Try backend capture first
       try {
-        const token  = API.getToken();
-        const res    = await fetch(`${API_BASE}/payment/capture/${data.orderID}`, {
-          method:  'POST',
-          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-          body:    JSON.stringify({
-            cartItems,
-            shippingAddress: JSON.parse(localStorage.getItem('cb_shipping') || '{}')
-          })
+        var captureRes = await API.payment.captureOrder(data.orderID, {
+          cartItems: cartItems,
+          shippingAddress: checkoutPayload.shippingAddress || {},
+          fulfilmentType: checkoutPayload.fulfilmentType || 'pickup'
         });
-        if (res.ok) {
-          const result = await res.json();
-          if (result.success) {
-            captured = {
-              id:    result.transactionId,
-              name:  result.payerName,
-              email: result.payerEmail,
-              amount: result.amount
-            };
-          }
-        }
-      } catch (e) {
-        console.warn('Backend capture failed — using client-side capture');
-      }
 
-      // Fallback: capture directly via PayPal SDK
-      if (!captured) {
-        try {
-          const details = await actions.order.capture();
-          const payer   = details.payer || {};
-          captured = {
-            id:     details.id,
-            name:   (payer.name ? payer.name.given_name + ' ' + payer.name.surname : 'Customer'),
-            email:  payer.email_address || '',
-            amount: total.toFixed(2)
-          };
-        } catch (e) {
-          document.getElementById('loading-box').style.display = 'none';
+        document.getElementById('loading-box').style.display = 'none';
+
+        if (captureRes && captureRes.success) {
+          API.cart.clear();
+          localStorage.removeItem('cb_checkout_payload');
+
+          document.getElementById('txn-id').textContent = captureRes.transactionId || data.orderID;
+          document.getElementById('payer-name').textContent = captureRes.payerName || user.username;
+          document.getElementById('payer-email').textContent = captureRes.payerEmail || user.email;
+          document.getElementById('paid-amount').textContent = API.formatINR(totalAmount);
+          document.getElementById('success-box').style.display = 'block';
+
+          setTimeout(function () {
+            window.location.href = 'orders.html';
+          }, 3000);
+        } else {
           document.getElementById('paypal-button-container').style.display = 'block';
-          alert('Payment capture failed. Please try again.');
-          return;
+          alert(captureRes.message || 'Payment capture failed. Please check your bank or PayPal account.');
         }
+      } catch (err) {
+        document.getElementById('loading-box').style.display = 'none';
+        document.getElementById('paypal-button-container').style.display = 'block';
+        alert('Payment verification error: ' + err.message);
       }
-
-      /* ── Success ── */
-      document.getElementById('loading-box').style.display = 'none';
-      API.cart.clear();
-
-      document.getElementById('txn-id').textContent    = captured.id;
-      document.getElementById('payer-name').textContent  = captured.name;
-      document.getElementById('payer-email').textContent = captured.email;
-      document.getElementById('paid-amount').textContent = captured.amount;
-      document.getElementById('success-box').style.display = 'block';
-
-      // Save order to backend if possible (non-blocking)
-      try {
-        const token = API.getToken();
-        await fetch(`${API_BASE}/orders`, {
-          method:  'POST',
-          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-          body:    JSON.stringify({
-            items:          cartItems.map(i => ({ name: i.name, price: i.price, quantity: i.quantity, image: i.image })),
-            shippingAddress: {},
-            paymentMethod:  'PayPal',
-            paypalOrderId:  captured.id
-          })
-        });
-      } catch (e) { /* backend down — order UI already shown */ }
     },
 
-    onCancel: () => {
+    onCancel: function () {
       document.getElementById('cancel-box').style.display = 'block';
     },
 
-    onError: (err) => {
-      console.error('PayPal error:', err);
-      document.getElementById('paypal-button-container').style.display = 'block';
-      alert('PayPal encountered an error. Please try again.');
+    onError: function (err) {
+      console.error('PayPal button error:', err);
+      document.getElementById('sdk-error').style.display = 'block';
+      document.getElementById('sdk-error').textContent = 'PayPal encountered an error. Please try again or use Cash on Delivery.';
     }
-
   }).render('#paypal-button-container');
 
-  /* ── Handle ?paypal=cancel redirect ── */
-  if (new URLSearchParams(window.location.search).get('paypal') === 'cancel') {
-    document.getElementById('cancel-box').style.display = 'block';
-  }
-
-})();
-</script>
-
-<style>
-  .cb-user-dropdown-menu {
-    background: #1a1a1a;
-    border: none;
-    border-radius: 8px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.35);
-    min-width: 180px;
-  }
-  .cb-user-dropdown-menu .dropdown-item {
-    color: #e0e0e0;
-    padding: 10px 18px;
-    font-size: 0.93em;
-  }
-  .cb-user-dropdown-menu .dropdown-item:hover {
-    background: #c49b63;
-    color: #fff;
-  }
-  .cb-user-dropdown-menu .dropdown-divider { border-color: #333; }
-</style>
-
-<script>
-(function () {
-  function cbUpdateNavbar() {
-    var token = localStorage.getItem('cb_token');
-    var userRaw = localStorage.getItem('cb_user');
-    var loginItem = document.getElementById('nav-login-item');
-    var registerItem = document.getElementById('nav-register-item');
-    var userDropdown = document.getElementById('nav-user-dropdown');
-    var usernameDisplay = document.getElementById('cb-username-display');
-    if (token && userRaw) {
-      try {
-        var user = JSON.parse(userRaw);
-        if (usernameDisplay) usernameDisplay.textContent = user.name || user.username || user.email || 'User';
-      } catch (e) { if (usernameDisplay) usernameDisplay.textContent = 'User'; }
-      if (loginItem) loginItem.style.display = 'none';
-      if (registerItem) registerItem.style.display = 'none';
-      if (userDropdown) userDropdown.style.display = '';
-    } else {
-      if (loginItem) loginItem.style.display = '';
-      if (registerItem) registerItem.style.display = '';
-      if (userDropdown) userDropdown.style.display = 'none';
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', function () {
-    cbUpdateNavbar();
-    var toggle = document.getElementById('cb-user-menu');
-    var menu = document.querySelector('.cb-user-dropdown-menu');
-    if (toggle && menu) {
-      toggle.addEventListener('click', function (e) {
-        e.preventDefault(); e.stopPropagation();
-        var isOpen = menu.classList.contains('show');
-        menu.classList.toggle('show', !isOpen);
-        toggle.setAttribute('aria-expanded', !isOpen);
-      });
-      document.addEventListener('click', function (e) {
-        if (!toggle.contains(e.target) && !menu.contains(e.target)) {
-          menu.classList.remove('show');
-          toggle.setAttribute('aria-expanded', 'false');
-        }
-      });
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') { menu.classList.remove('show'); }
-      });
-    }
-    document.querySelectorAll('.cb-logout-btn').forEach(function (btn) {
-      btn.addEventListener('click', function (e) {
-        e.preventDefault();
-        localStorage.removeItem('cb_token');
-        localStorage.removeItem('cb_user');
-        localStorage.removeItem('cb_cart');
-        cbUpdateNavbar();
-        window.location.href = 'index.html';
-      });
-    });
-  });
 })();
 </script>
 

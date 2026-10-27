@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<title>Coffee - Free Bootstrap 4 Template by Colorlib</title>
+	<title>Our Menu — CoffeeBlend Mumbai</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -18,19 +18,194 @@
 	<link rel="stylesheet" href="css/magnific-popup.css">
 
 	<link rel="stylesheet" href="css/aos.css">
-
 	<link rel="stylesheet" href="css/ionicons.min.css">
 
 	<link rel="stylesheet" href="css/bootstrap-datepicker.css">
 	<link rel="stylesheet" href="css/jquery.timepicker.css">
 
-
 	<link rel="stylesheet" href="css/flaticon.css">
 	<link rel="stylesheet" href="css/icomoon.css">
 	<link rel="stylesheet" href="css/style.css">
+
+	<style>
+		/* Category & Search Filter Bar */
+		.cb-filter-bar {
+			background: #121212;
+			border: 1px solid #282828;
+			border-radius: 12px;
+			padding: 20px 24px;
+			margin-bottom: 40px;
+		}
+		.cb-search-input {
+			background: #1a1a1a;
+			border: 1px solid #333;
+			color: #fff;
+			padding: 12px 18px;
+			border-radius: 8px;
+			font-size: 0.95rem;
+			width: 100%;
+			transition: border-color 0.2s;
+		}
+		.cb-search-input:focus {
+			border-color: #c49b63;
+			outline: none;
+			color: #fff;
+			background: #202020;
+		}
+		.cb-category-pill {
+			background: transparent;
+			border: 1px solid #444;
+			color: #aaa;
+			padding: 8px 18px;
+			border-radius: 30px;
+			font-size: 0.88rem;
+			font-weight: 500;
+			cursor: pointer;
+			margin: 4px;
+			transition: all 0.2s;
+		}
+		.cb-category-pill:hover,
+		.cb-category-pill.active {
+			background: #c49b63;
+			border-color: #c49b63;
+			color: #fff;
+		}
+		.cb-product-card {
+			background: #141414;
+			border: 1px solid #242424;
+			border-radius: 12px;
+			overflow: hidden;
+			margin-bottom: 30px;
+			transition: transform 0.25s, border-color 0.25s;
+			display: flex;
+			flex-direction: column;
+			height: calc(100% - 30px);
+		}
+		.cb-product-card:hover {
+			border-color: #c49b63;
+			transform: translateY(-4px);
+		}
+		.cb-product-img {
+			height: 220px;
+			background-size: cover;
+			background-position: center;
+			position: relative;
+		}
+		.cb-product-body {
+			padding: 22px 20px;
+			display: flex;
+			flex-direction: column;
+			flex-grow: 1;
+			text-align: center;
+		}
+		.cb-product-title {
+			color: #fff;
+			font-size: 1.15rem;
+			font-weight: 600;
+			margin-bottom: 8px;
+		}
+		.cb-product-desc {
+			color: #888;
+			font-size: 0.84rem;
+			line-height: 1.5;
+			margin-bottom: 16px;
+			flex-grow: 1;
+		}
+		.cb-product-price {
+			color: #c49b63;
+			font-size: 1.3rem;
+			font-weight: 700;
+			margin-bottom: 16px;
+		}
+		.cb-badge-soldout {
+			position: absolute;
+			top: 12px;
+			right: 12px;
+			background: rgba(220, 53, 69, 0.9);
+			color: #fff;
+			padding: 4px 10px;
+			border-radius: 20px;
+			font-size: 0.75rem;
+			font-weight: 600;
+			letter-spacing: 0.5px;
+			text-transform: uppercase;
+		}
+
+		/* Customization Modal Styling */
+		.modal-content.cb-modal-dark {
+			background: #181818;
+			border: 1px solid #333;
+			color: #fff;
+			border-radius: 14px;
+		}
+		.cb-modal-dark .modal-header {
+			border-bottom: 1px solid #282828;
+		}
+		.cb-modal-dark .modal-footer {
+			border-top: 1px solid #282828;
+		}
+		.cb-option-group {
+			margin-bottom: 18px;
+		}
+		.cb-option-label {
+			font-size: 0.85rem;
+			color: #c49b63;
+			text-transform: uppercase;
+			letter-spacing: 0.5px;
+			font-weight: 600;
+			margin-bottom: 8px;
+			display: block;
+		}
+		.cb-select {
+			background: #222;
+			border: 1px solid #3a3a3a;
+			color: #fff;
+			border-radius: 8px;
+			padding: 10px 14px;
+			width: 100%;
+		}
+		.cb-select:focus {
+			border-color: #c49b63;
+			outline: none;
+			color: #fff;
+			background: #252525;
+		}
+		.cb-user-dropdown-menu {
+			background: #1a1a1a;
+			border: none;
+			border-radius: 8px;
+			box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+			min-width: 190px;
+			margin-top: 6px;
+		}
+		.cb-user-dropdown-menu .dropdown-item {
+			color: #e0e0e0;
+			padding: 10px 18px;
+			font-size: 0.93em;
+		}
+		.cb-user-dropdown-menu .dropdown-item:hover {
+			background: #c49b63;
+			color: #fff;
+		}
+		.cb-user-dropdown-menu .dropdown-divider {
+			border-color: #333;
+		}
+		#nav-user-dropdown .cb-user-toggle {
+			display: flex;
+			align-items: center;
+			gap: 5px;
+			cursor: pointer;
+		}
+		@media(max-width:991px){
+			.cb-user-dropdown-menu { background:transparent; box-shadow:none; border-radius:0; padding-left:12px; }
+			.cb-user-dropdown-menu .dropdown-item { color:rgba(255,255,255,0.8); }
+			.cb-user-dropdown-menu .dropdown-item:hover { background:rgba(196,155,99,0.15); color:#c49b63; }
+		}
+	</style>
 </head>
 
 <body>
+	<!-- NAVBAR -->
 	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 		<div class="container">
 			<a class="navbar-brand" href="index.html">Coffee<small>Blend</small></a>
@@ -44,59 +219,45 @@
 					<li class="nav-item active"><a href="menu.html" class="nav-link">Menu</a></li>
 					<li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
 					<li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-
 					<li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-					<li class="nav-item cart"><a href="cart.html" class="nav-link"><span
-								class="icon icon-shopping_cart"></span></a>
-					<li class="nav-item" id="nav-login-item"><a href="login.html" class="nav-link"
-							id="nav-login-link">Login</a></li>
-					<li class="nav-item" id="nav-register-item"><a href="register.html" class="nav-link"
-							id="nav-register-link">Register</a></li>
+					<li class="nav-item cart"><a href="cart.html" class="nav-link"><span class="icon icon-shopping_cart"></span></a></li>
+					<li class="nav-item" id="nav-login-item"><a href="login.html" class="nav-link" id="nav-login-link">Login</a></li>
+					<li class="nav-item" id="nav-register-item"><a href="register.html" class="nav-link" id="nav-register-link">Register</a></li>
 					<li class="nav-item dropdown" id="nav-user-dropdown" style="display:none;">
-						<a href="#" class="nav-link dropdown-toggle cb-user-toggle" id="cb-user-menu" role="button"
-							aria-expanded="false">
+						<a href="#" class="nav-link dropdown-toggle cb-user-toggle" id="cb-user-menu" role="button" aria-expanded="false">
 							<span class="icon icon-person" style="font-size:1.2em;vertical-align:middle;"></span>
-							<span id="cb-username-display"
-								style="margin-left:4px;vertical-align:middle;font-size:0.97em;"></span>
+							<span id="cb-username-display" style="margin-left:4px;vertical-align:middle;font-size:0.97em;"></span>
 						</a>
-						<div class="dropdown-menu dropdown-menu-right cb-user-dropdown-menu"
-							aria-labelledby="cb-user-menu">
-							<a class="dropdown-item" href="profile.html"><span class="icon icon-person"
-									style="margin-right:6px;"></span>My Profile</a>
-							<a class="dropdown-item" href="orders.html"><span class="icon icon-list"
-									style="margin-right:6px;"></span>My Orders</a>
-							<a class="dropdown-item" href="bookings.html"><span class="icon icon-calendar"
-									style="margin-right:6px;"></span>My Bookings</a>
+						<div class="dropdown-menu dropdown-menu-right cb-user-dropdown-menu" aria-labelledby="cb-user-menu">
+							<a class="dropdown-item" href="profile.html"><span class="icon icon-person" style="margin-right:6px;"></span>My Profile</a>
+							<a class="dropdown-item" href="orders.html"><span class="icon icon-list" style="margin-right:6px;"></span>My Orders</a>
+							<a class="dropdown-item" href="bookings.html"><span class="icon icon-calendar" style="margin-right:6px;"></span>My Bookings</a>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item cb-logout-btn" href="#"><span class="icon icon-power-standby"
-									style="margin-right:6px;"></span>Logout</a>
+							<a class="dropdown-item cb-logout-btn" href="#"><span class="icon icon-power-standby" style="margin-right:6px;"></span>Logout</a>
 						</div>
 					</li>
-
 				</ul>
 			</div>
 		</div>
 	</nav>
 	<!-- END nav -->
 
+	<!-- HERO SECTION (BACKGROUND PRESERVED) -->
 	<section class="home-slider owl-carousel">
-
 		<div class="slider-item" style="background-image: url(images/bg_3.jpg);" data-stellar-background-ratio="0.5">
 			<div class="overlay"></div>
 			<div class="container">
 				<div class="row slider-text justify-content-center align-items-center">
-
 					<div class="col-md-7 col-sm-12 text-center ftco-animate">
 						<h1 class="mb-3 mt-5 bread">Our Menu</h1>
-						<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Menu</span>
-						</p>
+						<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Menu</span></p>
 					</div>
-
 				</div>
 			</div>
 		</div>
 	</section>
 
+	<!-- INTRO SECTION (Bandra West Mumbai & Booking) -->
 	<section class="ftco-intro">
 		<div class="container-wrap">
 			<div class="wrap d-md-flex align-items-xl-end">
@@ -105,22 +266,22 @@
 						<div class="col-md-4 d-flex ftco-animate">
 							<div class="icon"><span class="icon-phone"></span></div>
 							<div class="text">
-								<h3>000 (123) 456 7890</h3>
-								<p>A small river named Duden flows by their place and supplies.</p>
+								<h3>+91 98200 12345</h3>
+								<p>Call us for orders or reservations in Bandra West.</p>
 							</div>
 						</div>
 						<div class="col-md-4 d-flex ftco-animate">
 							<div class="icon"><span class="icon-my_location"></span></div>
 							<div class="text">
-								<h3>198 West 21th Street</h3>
-								<p> 203 Fake St. Mountain View, San Francisco, California, USA</p>
+								<h3>Hill Road, Bandra West</h3>
+								<p>Mumbai, Maharashtra 400050</p>
 							</div>
 						</div>
 						<div class="col-md-4 d-flex ftco-animate">
 							<div class="icon"><span class="icon-clock-o"></span></div>
 							<div class="text">
-								<h3>Open Monday-Friday</h3>
-								<p>8:00am - 9:00pm</p>
+								<h3>Open Monday - Sunday</h3>
+								<p>8:00am - 11:00pm</p>
 							</div>
 						</div>
 					</div>
@@ -130,36 +291,35 @@
 					<form action="#" class="appointment-form">
 						<div class="d-md-flex">
 							<div class="form-group">
-								<input type="text" class="form-control" placeholder="First Name">
+								<input type="text" class="form-control" placeholder="First Name" required>
 							</div>
 							<div class="form-group ml-md-4">
-								<input type="text" class="form-control" placeholder="Last Name">
+								<input type="text" class="form-control" placeholder="Last Name" required>
 							</div>
 						</div>
 						<div class="d-md-flex">
 							<div class="form-group">
 								<div class="input-wrap">
 									<div class="icon"><span class="ion-md-calendar"></span></div>
-									<input type="text" class="form-control appointment_date" placeholder="Date">
+									<input type="text" class="form-control appointment_date" placeholder="Date" required>
 								</div>
 							</div>
 							<div class="form-group ml-md-4">
 								<div class="input-wrap">
 									<div class="icon"><span class="ion-ios-clock"></span></div>
-									<input type="text" class="form-control appointment_time" placeholder="Time">
+									<input type="text" class="form-control appointment_time" placeholder="Time" required>
 								</div>
 							</div>
 							<div class="form-group ml-md-4">
-								<input type="text" class="form-control" placeholder="Phone">
+								<input type="text" class="form-control" placeholder="Phone" required>
 							</div>
 						</div>
 						<div class="d-md-flex">
 							<div class="form-group">
-								<textarea name="" id="" cols="30" rows="2" class="form-control"
-									placeholder="Message"></textarea>
+								<textarea name="" id="" cols="30" rows="2" class="form-control" placeholder="Special Request / Guests"></textarea>
 							</div>
 							<div class="form-group ml-md-4">
-								<input type="submit" value="Appointment" class="btn btn-white py-3 px-4">
+								<input type="submit" value="Book Table" class="btn btn-white py-3 px-4">
 							</div>
 						</div>
 					</form>
@@ -168,414 +328,152 @@
 		</div>
 	</section>
 
-	<section class="ftco-section">
-		<div class="container">
-			<div class="row">
-
-
-				<div class="col-md-6">
-					<h3 class="mb-5 heading-pricing ftco-animate">Desserts</h3>
-					<div class="pricing-entry d-flex ftco-animate">
-						<div class="img" style="background-image: url(images/dessert-1.jpg);"></div>
-						<div class="desc pl-3">
-							<div class="d-flex text align-items-center">
-								<h3><span>Cornish - Mackerel</span></h3>
-								<span class="price">$20.00</span>
-							</div>
-							<div class="d-block">
-								<p>A small river named Duden flows by their place and supplies</p>
-							</div>
-						</div>
-					</div>
-					<div class="pricing-entry d-flex ftco-animate">
-						<div class="img" style="background-image: url(images/dessert-2.jpg);"></div>
-						<div class="desc pl-3">
-							<div class="d-flex text align-items-center">
-								<h3><span>Roasted Steak</span></h3>
-								<span class="price">$29.00</span>
-							</div>
-							<div class="d-block">
-								<p>A small river named Duden flows by their place and supplies</p>
-							</div>
-						</div>
-					</div>
-					<div class="pricing-entry d-flex ftco-animate">
-						<div class="img" style="background-image: url(images/dessert-3.jpg);"></div>
-						<div class="desc pl-3">
-							<div class="d-flex text align-items-center">
-								<h3><span>Seasonal Soup</span></h3>
-								<span class="price">$20.00</span>
-							</div>
-							<div class="d-block">
-								<p>A small river named Duden flows by their place and supplies</p>
-							</div>
-						</div>
-					</div>
-					<div class="pricing-entry d-flex ftco-animate">
-						<div class="img" style="background-image: url(images/dessert-4.jpg);"></div>
-						<div class="desc pl-3">
-							<div class="d-flex text align-items-center">
-								<h3><span>Chicken Curry</span></h3>
-								<span class="price">$20.00</span>
-							</div>
-							<div class="d-block">
-								<p>A small river named Duden flows by their place and supplies</p>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-6">
-					<h3 class="mb-5 heading-pricing ftco-animate">Drinks</h3>
-					<div class="pricing-entry d-flex ftco-animate">
-						<div class="img" style="background-image: url(images/drink-5.jpg);"></div>
-						<div class="desc pl-3">
-							<div class="d-flex text align-items-center">
-								<h3><span>Sea Trout</span></h3>
-								<span class="price">$49.91</span>
-							</div>
-							<div class="d-block">
-								<p>A small river named Duden flows by their place and supplies</p>
-							</div>
-						</div>
-					</div>
-					<div class="pricing-entry d-flex ftco-animate">
-						<div class="img" style="background-image: url(images/drink-6.jpg);"></div>
-						<div class="desc pl-3">
-							<div class="d-flex text align-items-center">
-								<h3><span>Roasted Beef</span></h3>
-								<span class="price">$20.00</span>
-							</div>
-							<div class="d-block">
-								<p>A small river named Duden flows by their place and supplies</p>
-							</div>
-						</div>
-					</div>
-					<div class="pricing-entry d-flex ftco-animate">
-						<div class="img" style="background-image: url(images/drink-7.jpg);"></div>
-						<div class="desc pl-3">
-							<div class="d-flex text align-items-center">
-								<h3><span>Butter Fried Chicken</span></h3>
-								<span class="price">$20.00</span>
-							</div>
-							<div class="d-block">
-								<p>A small river named Duden flows by their place and supplies</p>
-							</div>
-						</div>
-					</div>
-					<div class="pricing-entry d-flex ftco-animate">
-						<div class="img" style="background-image: url(images/drink-8.jpg);"></div>
-						<div class="desc pl-3">
-							<div class="d-flex text align-items-center">
-								<h3><span>Chiken Filet</span></h3>
-								<span class="price">$20.00</span>
-							</div>
-							<div class="d-block">
-								<p>A small river named Duden flows by their place and supplies</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
+	<!-- PRODUCT CATALOGUE SECTION (MongoDB Connected) -->
 	<section class="ftco-menu mb-5 pb-5">
 		<div class="container">
-			<div class="row justify-content-center mb-5">
-				<div class="col-md-7 heading-section text-center ftco-animate">
-					<span class="subheading">Discover</span>
-					<h2 class="mb-4">Our Products</h2>
-					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there
-						live the blind texts.</p>
+			<div class="row justify-content-center mb-4">
+				<div class="col-md-8 heading-section text-center ftco-animate">
+					<span class="subheading">Freshly Crafted</span>
+					<h2 class="mb-3">Explore Our Menu</h2>
+					<p>Craft coffee, refreshing beverages, artisanal snacks, and fresh desserts prepared with passion in Mumbai.</p>
 				</div>
 			</div>
-			<div class="row d-md-flex">
-				<div class="col-lg-12 ftco-animate p-md-5">
-					<div class="row">
-						<div class="col-md-12 nav-link-wrap mb-5">
-							<div class="nav ftco-animate nav-pills justify-content-center" id="v-pills-tab"
-								role="tablist" aria-orientation="vertical">
 
-								<a class="nav-link active" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2"
-									role="tab" aria-controls="v-pills-2" aria-selected="false">Drinks</a>
-
-								<a class="nav-link" id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3" role="tab"
-									aria-controls="v-pills-3" aria-selected="false">Desserts</a>
-							</div>
-						</div>
-						<div class="col-md-12 d-flex align-items-center">
-
-							<div class="tab-content ftco-animate" id="v-pills-tabContent">
-
-
-
-								<div class="tab-pane fade show active" id="v-pills-2" role="tabpanel"
-									aria-labelledby="v-pills-2-tab">
-									<div class="row">
-										<div class="col-md-4 text-center">
-											<div class="menu-wrap">
-												<a href="#" class="menu-img img mb-4"
-													style="background-image: url(images/drink-1.jpg);"></a>
-												<div class="text">
-													<h3><a href="#">Lemonade Juice</a></h3>
-													<p>Far far away, behind the word mountains, far from the countries
-														Vokalia and Consonantia.</p>
-													<p class="price"><span>$2.90</span></p>
-													<p><a href="#"
-															class="btn btn-primary btn-outline-primary add-to-cart-btn">Add
-															to Cart</a></p>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-4 text-center">
-											<div class="menu-wrap">
-												<a href="#" class="menu-img img mb-4"
-													style="background-image: url(images/drink-2.jpg);"></a>
-												<div class="text">
-													<h3><a href="#">Pineapple Juice</a></h3>
-													<p>Far far away, behind the word mountains, far from the countries
-														Vokalia and Consonantia.</p>
-													<p class="price"><span>$2.90</span></p>
-													<p><a href="#"
-															class="btn btn-primary btn-outline-primary add-to-cart-btn">Add
-															to Cart</a></p>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-4 text-center">
-											<div class="menu-wrap">
-												<a href="#" class="menu-img img mb-4"
-													style="background-image: url(images/drink-3.jpg);"></a>
-												<div class="text">
-													<h3><a href="#">Soda Drinks</a></h3>
-													<p>Far far away, behind the word mountains, far from the countries
-														Vokalia and Consonantia.</p>
-													<p class="price"><span>$2.90</span></p>
-													<p><a href="#"
-															class="btn btn-primary btn-outline-primary add-to-cart-btn">Add
-															to Cart</a></p>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-4 text-center">
-											<div class="menu-wrap">
-												<a href="#" class="menu-img img mb-4"
-													style="background-image: url(images/drink-4.jpg);"></a>
-												<div class="text">
-													<h3><a href="#">Lemonade Juice</a></h3>
-													<p>Far far away, behind the word mountains, far from the countries
-														Vokalia and Consonantia.</p>
-													<p class="price"><span>$2.90</span></p>
-													<p><a href="#"
-															class="btn btn-primary btn-outline-primary add-to-cart-btn">Add
-															to Cart</a></p>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-4 text-center">
-											<div class="menu-wrap">
-												<a href="#" class="menu-img img mb-4"
-													style="background-image: url(images/drink-5.jpg);"></a>
-												<div class="text">
-													<h3><a href="#">Pineapple Juice</a></h3>
-													<p>Far far away, behind the word mountains, far from the countries
-														Vokalia and Consonantia.</p>
-													<p class="price"><span>$2.90</span></p>
-													<p><a href="#"
-															class="btn btn-primary btn-outline-primary add-to-cart-btn">Add
-															to Cart</a></p>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-4 text-center">
-											<div class="menu-wrap">
-												<a href="#" class="menu-img img mb-4"
-													style="background-image: url(images/drink-6.jpg);"></a>
-												<div class="text">
-													<h3><a href="#">Soda Drinks</a></h3>
-													<p>Far far away, behind the word mountains, far from the countries
-														Vokalia and Consonantia.</p>
-													<p class="price"><span>$2.90</span></p>
-													<p><a href="#"
-															class="btn btn-primary btn-outline-primary add-to-cart-btn">Add
-															to Cart</a></p>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="tab-pane fade" id="v-pills-3" role="tabpanel"
-									aria-labelledby="v-pills-3-tab">
-									<div class="row">
-										<div class="col-md-4 text-center">
-											<div class="menu-wrap">
-												<a href="#" class="menu-img img mb-4"
-													style="background-image: url(images/dessert-1.jpg);"></a>
-												<div class="text">
-													<h3><a href="#">Hot Cake Honey</a></h3>
-													<p>Far far away, behind the word mountains, far from the countries
-														Vokalia and Consonantia.</p>
-													<p class="price"><span>$2.90</span></p>
-													<p><a href="#"
-															class="btn btn-primary btn-outline-primary add-to-cart-btn">Add
-															to Cart</a></p>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-4 text-center">
-											<div class="menu-wrap">
-												<a href="#" class="menu-img img mb-4"
-													style="background-image: url(images/dessert-2.jpg);"></a>
-												<div class="text">
-													<h3><a href="#">Hot Cake Honey</a></h3>
-													<p>Far far away, behind the word mountains, far from the countries
-														Vokalia and Consonantia.</p>
-													<p class="price"><span>$2.90</span></p>
-													<p><a href="#"
-															class="btn btn-primary btn-outline-primary add-to-cart-btn">Add
-															to Cart</a></p>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-4 text-center">
-											<div class="menu-wrap">
-												<a href="#" class="menu-img img mb-4"
-													style="background-image: url(images/dessert-3.jpg);"></a>
-												<div class="text">
-													<h3><a href="#">Hot Cake Honey</a></h3>
-													<p>Far far away, behind the word mountains, far from the countries
-														Vokalia and Consonantia.</p>
-													<p class="price"><span>$2.90</span></p>
-													<p><a href="#"
-															class="btn btn-primary btn-outline-primary add-to-cart-btn">Add
-															to Cart</a></p>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-4 text-center">
-											<div class="menu-wrap">
-												<a href="#" class="menu-img img mb-4"
-													style="background-image: url(images/dessert-4.jpg);"></a>
-												<div class="text">
-													<h3><a href="#">Hot Cake Honey</a></h3>
-													<p>Far far away, behind the word mountains, far from the countries
-														Vokalia and Consonantia.</p>
-													<p class="price"><span>$2.90</span></p>
-													<p><a href="#"
-															class="btn btn-primary btn-outline-primary add-to-cart-btn">Add
-															to Cart</a></p>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-4 text-center">
-											<div class="menu-wrap">
-												<a href="#" class="menu-img img mb-4"
-													style="background-image: url(images/dessert-5.jpg);"></a>
-												<div class="text">
-													<h3><a href="#">Hot Cake Honey</a></h3>
-													<p>Far far away, behind the word mountains, far from the countries
-														Vokalia and Consonantia.</p>
-													<p class="price"><span>$2.90</span></p>
-													<p><a href="#"
-															class="btn btn-primary btn-outline-primary add-to-cart-btn">Add
-															to Cart</a></p>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-4 text-center">
-											<div class="menu-wrap">
-												<a href="#" class="menu-img img mb-4"
-													style="background-image: url(images/dessert-6.jpg);"></a>
-												<div class="text">
-													<h3><a href="#">Hot Cake Honey</a></h3>
-													<p>Far far away, behind the word mountains, far from the countries
-														Vokalia and Consonantia.</p>
-													<p class="price"><span>$2.90</span></p>
-													<p><a href="#"
-															class="btn btn-primary btn-outline-primary add-to-cart-btn">Add
-															to Cart</a></p>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+			<!-- Filter & Search Bar -->
+			<div class="cb-filter-bar">
+				<div class="row align-items-center">
+					<div class="col-lg-7 col-md-12 mb-3 mb-lg-0">
+						<div class="d-flex flex-wrap" id="cb-category-tabs">
+							<button class="cb-category-pill active" data-cat="all">All Items</button>
+							<button class="cb-category-pill" data-cat="coffee">☕ Coffee</button>
+							<button class="cb-category-pill" data-cat="drinks">🍹 Beverages</button>
+							<button class="cb-category-pill" data-cat="desserts">🍰 Desserts</button>
+							<button class="cb-category-pill" data-cat="burgers">🍔 Burgers &amp; Snacks</button>
+							<button class="cb-category-pill" data-cat="dishes">🍝 Mains &amp; Dishes</button>
 						</div>
 					</div>
+					<div class="col-lg-5 col-md-12">
+						<div class="input-group">
+							<input type="text" id="cb-menu-search" class="cb-search-input" placeholder="Search coffee, shake, pastry...">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Products Grid Container -->
+			<div class="row" id="cb-products-grid">
+				<div class="col-12 text-center py-5">
+					<div class="spinner-border text-warning" role="status"></div>
+					<p class="mt-3 text-muted">Loading fresh menu from CoffeeBlend kitchen...</p>
 				</div>
 			</div>
 		</div>
 	</section>
 
+	<!-- PRODUCT CUSTOMIZATION MODAL -->
+	<div class="modal fade" id="customizationModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content cb-modal-dark">
+				<div class="modal-header">
+					<h5 class="modal-title" id="custModalTitle" style="color:#c49b63;">Customize Your Order</h5>
+					<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="d-flex align-items-center mb-3">
+						<div id="custModalImg" style="width:70px; height:70px; background-size:cover; border-radius:8px; margin-right:16px;"></div>
+						<div>
+							<h6 id="custModalName" class="text-white mb-1">Product Name</h6>
+							<div id="custModalBasePrice" style="color:#c49b63; font-weight:700;">₹0.00</div>
+						</div>
+					</div>
+
+					<div class="cb-option-group" id="optGroupSize">
+						<label class="cb-option-label">Choose Size</label>
+						<select id="selSize" class="cb-select">
+							<option value="Regular" data-extra="0">Regular (Standard)</option>
+							<option value="Large" data-extra="40">Large (+₹40)</option>
+						</select>
+					</div>
+
+					<div class="cb-option-group" id="optGroupMilk">
+						<label class="cb-option-label">Milk Preference</label>
+						<select id="selMilk" class="cb-select">
+							<option value="Standard Whole Milk">Standard Whole Milk</option>
+							<option value="Oat Milk (+₹30)">Oat Milk (+₹30)</option>
+							<option value="Almond Milk (+₹30)">Almond Milk (+₹30)</option>
+							<option value="Skim Milk">Skim Milk (Light)</option>
+						</select>
+					</div>
+
+					<div class="cb-option-group" id="optGroupSugar">
+						<label class="cb-option-label">Sugar Preference</label>
+						<select id="selSugar" class="cb-select">
+							<option value="Normal Sugar">Normal Sugar</option>
+							<option value="Less Sugar">Less Sugar</option>
+							<option value="No Sugar">No Sugar</option>
+							<option value="Extra Sugar">Extra Sugar</option>
+						</select>
+					</div>
+
+					<div class="cb-option-group">
+						<label class="cb-option-label">Quantity</label>
+						<div class="d-flex align-items-center" style="max-width:140px;">
+							<button type="button" class="btn btn-secondary btn-sm" id="custQtyMinus" style="padding:4px 14px;">-</button>
+							<input type="text" id="custQtyVal" class="form-control text-center mx-2" value="1" readonly style="background:#222; color:#fff; border:1px solid #444;">
+							<button type="button" class="btn btn-secondary btn-sm" id="custQtyPlus" style="padding:4px 14px;">+</button>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer d-flex justify-content-between align-items-center">
+					<div>
+						<small class="text-muted d-block">Total:</small>
+						<span id="custModalTotalPrice" style="color:#c49b63; font-size:1.3rem; font-weight:700;">₹0.00</span>
+					</div>
+					<button type="button" class="btn btn-primary px-4 py-2" id="custConfirmAddBtn">Add to Cart</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- FOOTER (PRESERVED) -->
 	<footer class="ftco-footer ftco-section img">
 		<div class="overlay"></div>
 		<div class="container">
 			<div class="row mb-5">
 				<div class="col-lg-3 col-md-6 mb-5 mb-md-5">
 					<div class="ftco-footer-widget mb-4">
-						<h2 class="ftco-heading-2">About Us</h2>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,
-							there live the blind texts.</p>
-						<ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-							<li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-							<li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-							<li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-						</ul>
+						<h2 class="ftco-heading-2">About CoffeeBlend</h2>
+						<p>Artisanal Indian coffee roastery based in Bandra West, Mumbai. Serving specialty brews, handcrafted shakes, and gourmet bites.</p>
 					</div>
 				</div>
 				<div class="col-lg-4 col-md-6 mb-5 mb-md-5">
 					<div class="ftco-footer-widget mb-4">
-						<h2 class="ftco-heading-2">Recent Blog</h2>
-						<div class="block-21 mb-4 d-flex">
-							<a class="blog-img mr-4" style="background-image: url(images/image_1.jpg);"></a>
-							<div class="text">
-								<h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about</a>
-								</h3>
-								<div class="meta">
-									<div><a href="#"><span class="icon-calendar"></span> Sept 15, 2018</a></div>
-									<div><a href="#"><span class="icon-person"></span> Admin</a></div>
-									<div><a href="#"><span class="icon-chat"></span> 19</a></div>
-								</div>
-							</div>
-						</div>
-						<div class="block-21 mb-4 d-flex">
-							<a class="blog-img mr-4" style="background-image: url(images/image_2.jpg);"></a>
-							<div class="text">
-								<h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about</a>
-								</h3>
-								<div class="meta">
-									<div><a href="#"><span class="icon-calendar"></span> Sept 15, 2018</a></div>
-									<div><a href="#"><span class="icon-person"></span> Admin</a></div>
-									<div><a href="#"><span class="icon-chat"></span> 19</a></div>
-								</div>
-							</div>
-						</div>
+						<h2 class="ftco-heading-2">Opening Hours</h2>
+						<p>Monday - Sunday: 8:00 AM - 11:00 PM</p>
+						<p>Online orders delivered within 10 km radius targeting ~30 minutes.</p>
 					</div>
 				</div>
 				<div class="col-lg-2 col-md-6 mb-5 mb-md-5">
 					<div class="ftco-footer-widget mb-4 ml-md-4">
-						<h2 class="ftco-heading-2">Services</h2>
+						<h2 class="ftco-heading-2">Navigation</h2>
 						<ul class="list-unstyled">
-							<li><a href="#" class="py-2 d-block">Cooked</a></li>
-							<li><a href="#" class="py-2 d-block">Deliver</a></li>
-							<li><a href="#" class="py-2 d-block">Quality Foods</a></li>
-							<li><a href="#" class="py-2 d-block">Mixed</a></li>
+							<li><a href="index.html" class="py-2 d-block">Home</a></li>
+							<li><a href="menu.html" class="py-2 d-block">Menu</a></li>
+							<li><a href="services.html" class="py-2 d-block">Services</a></li>
+							<li><a href="contact.html" class="py-2 d-block">Contact</a></li>
 						</ul>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6 mb-5 mb-md-5">
 					<div class="ftco-footer-widget mb-4">
-						<h2 class="ftco-heading-2">Have a Questions?</h2>
+						<h2 class="ftco-heading-2">Visit Our Café</h2>
 						<div class="block-23 mb-3">
 							<ul>
-								<li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain
-										View, San Francisco, California, USA</span></li>
-								<li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929
-											210</span></a></li>
-								<li><a href="#"><span class="icon icon-envelope"></span><span
-											class="text">info@yourdomain.com</span></a></li>
+								<li><span class="icon icon-map-marker"></span><span class="text">Hill Road, Bandra West, Mumbai, Maharashtra 400050</span></li>
+								<li><a href="tel:+919820012345"><span class="icon icon-phone"></span><span class="text">+91 98200 12345</span></a></li>
+								<li><a href="mailto:hello@coffeeblend.in"><span class="icon icon-envelope"></span><span class="text">hello@coffeeblend.in</span></a></li>
 							</ul>
 						</div>
 					</div>
@@ -583,24 +481,18 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12 text-center">
-
-					<p>
-						Copyright &copy;
-						<script>document.write(new Date().getFullYear());</script> All rights reserved
-					</p>
+					<p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> CoffeeBlend Mumbai. All rights reserved.</p>
 				</div>
 			</div>
 		</div>
 	</footer>
 
-
-
 	<!-- loader -->
 	<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
 			<circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
-			<circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
-				stroke="#F96D00" />
-		</svg></div>
+			<circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" />
+		</svg>
+	</div>
 
 	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery-migrate-3.0.1.min.js"></script>
@@ -619,215 +511,240 @@
 
 	<script src="js/api.js"></script>
 	<script src="js/main.js"></script>
+
 	<script>
 		$(document).ready(function () {
+			var activeCategory = 'all';
+			var searchQuery = '';
+			var allProducts = [];
+			var currentCustomizingProduct = null;
 
-			/* ── BOOK A TABLE ── */
-			$('.appointment-form').on('submit', function (e) {
-				e.preventDefault();
-				var firstName = $(this).find('input[placeholder="First Name"]').val().trim();
-				var lastName = $(this).find('input[placeholder="Last Name"]').val().trim();
-				var date = $(this).find('.appointment_date').val().trim();
-				var time = $(this).find('.appointment_time').val().trim();
-				var phone = $(this).find('input[placeholder="Phone"]').val().trim();
-				var message = $(this).find('textarea').val().trim();
-				if (!firstName || !lastName || !date || !time || !phone) {
-					API.showAlert('Please fill all booking fields', 'error'); return;
-				}
-				var btn = $(this).find('[type="submit"]');
-				btn.prop('disabled', true).val('Booking...');
-				API.bookings.book({ firstName: firstName, lastName: lastName, date: date, time: time, phone: phone, message: message })
-					.then(function (result) {
-						if (result.success) { API.showAlert(result.message || 'Table booked! ☕'); $('.appointment-form')[0].reset(); }
-						else API.showAlert(result.message || 'Booking failed', 'error');
-						btn.prop('disabled', false).val('Appointment');
-					}).catch(function () { API.showAlert('Server error', 'error'); btn.prop('disabled', false).val('Appointment'); });
-			});
+			/* ── FETCH & RENDER MENU ITEMS ── */
+			function loadMenu() {
+				var grid = $('#cb-products-grid');
+				grid.html('<div class="col-12 text-center py-5"><div class="spinner-border text-warning" role="status"></div><p class="mt-3 text-muted">Loading fresh menu...</p></div>');
 
-			/* ── ADD TO CART — ONLY .add-to-cart-btn ── */
-			$(document).on('click', '.add-to-cart-btn', function (e) {
-				e.preventDefault();
-				var card = $(this).closest('.menu-entry, .menu-wrap');
-				var name = card.find('h3 a').text().trim() || card.find('h3').text().trim();
-				var priceText = card.find('.price span').text().trim() || card.find('span.price').text().trim();
-				var price = parseFloat(priceText.replace('$', '')) || 2.90;
-				var styleAttr = card.find('a.img, .img, .menu-img').first().attr('style') || '';
-				var imgMatch = styleAttr.match(/url\(([^)'"]+)/);
-				var image = imgMatch ? imgMatch[1] : 'images/menu-1.jpg';
-				var productId = 'prod_' + name.toLowerCase().replace(/\s+/g, '_');
-
-				API.cart.add({ productId: productId, name: name, price: price, image: image });
-				API.showAlert(name + ' added to cart! 🛒');
-				var btn = $(this), orig = btn.text();
-				btn.text('Added! ✓');
-				setTimeout(function () { btn.text(orig); }, 1500);
-			});
-
-		});
-	</script>
-
-	<!-- CoffeeBlend Auth Navbar CSS -->
-	<style>
-		#nav-user-dropdown {
-			position: relative;
-		}
-
-		.cb-user-dropdown-menu {
-			background: #1a1a1a;
-			border: none;
-			border-radius: 8px;
-			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-			min-width: 220px;
-
-			position: absolute;
-			top: 100%;
-			right: 0;
-
-			margin-top: 0;
-
-			opacity: 0;
-			visibility: hidden;
-			transform: translateY(10px);
-
-			transition: all 0.22s ease;
-
-			display: block;
-			pointer-events: none;
-			z-index: 9999;
-		}
-
-		#nav-user-dropdown:hover .cb-user-dropdown-menu {
-			opacity: 1;
-			visibility: visible;
-			transform: translateY(0);
-			pointer-events: auto;
-		}
-
-		.cb-user-dropdown-menu .dropdown-item {
-			color: #e0e0e0;
-			padding: 12px 18px;
-			font-size: 0.93em;
-			transition: all 0.18s ease;
-		}
-
-		.cb-user-dropdown-menu .dropdown-item:hover {
-			background: #c49b63;
-			color: #fff;
-		}
-
-		.cb-user-dropdown-menu .dropdown-divider {
-			border-color: #333;
-		}
-
-		#nav-user-dropdown .cb-user-toggle {
-			display: flex;
-			align-items: center;
-			gap: 5px;
-			cursor: pointer;
-		}
-
-		#nav-user-dropdown .cb-user-toggle:focus {
-			outline: none;
-			box-shadow: none;
-		}
-
-		@media (max-width: 991px) {
-
-			.cb-user-dropdown-menu {
-				position: static;
-				opacity: 1;
-				visibility: visible;
-				transform: none;
-				pointer-events: auto;
-				background: transparent;
-				box-shadow: none;
-				min-width: 100%;
-			}
-
-		}
-	</style>
-
-	<!-- CoffeeBlend Auth Navbar JS -->
-	<script>
-		(function () {
-			function cbUpdateNavbar() {
-				var token = localStorage.getItem('cb_token');
-				var userRaw = localStorage.getItem('cb_user');
-				var loginItem = document.getElementById('nav-login-item');
-				var registerItem = document.getElementById('nav-register-item');
-				var userDropdown = document.getElementById('nav-user-dropdown');
-				var usernameDisplay = document.getElementById('cb-username-display');
-
-				if (token && userRaw) {
-					try {
-						var user = JSON.parse(userRaw);
-						var name = user.name || user.username || user.email || 'User';
-						if (usernameDisplay) usernameDisplay.textContent = name;
-					} catch (e) {
-						if (usernameDisplay) usernameDisplay.textContent = 'User';
+				API.menu.getAll(activeCategory, searchQuery).then(function (res) {
+					if (res.success && res.products && res.products.length > 0) {
+						allProducts = res.products;
+						renderProducts(res.products);
+					} else {
+						grid.html('<div class="col-12 text-center py-5"><h4 class="text-muted">No products found matching your search.</h4><p class="text-muted">Try selecting a different category or clear search filter.</p></div>');
 					}
-					if (loginItem) loginItem.style.display = 'none';
-					if (registerItem) registerItem.style.display = 'none';
-					if (userDropdown) userDropdown.style.display = '';
-				} else {
-					if (loginItem) loginItem.style.display = '';
-					if (registerItem) registerItem.style.display = '';
-					if (userDropdown) userDropdown.style.display = 'none';
-				}
-			}
-			function cbInitDropdown() { }
-			// function cbInitDropdown() {
-			//   var toggle = document.getElementById('cb-user-menu');
-			//   var menu = document.querySelector('.cb-user-dropdown-menu');
-			//   if (!toggle || !menu) return;
-
-			//   // Toggle on click
-			//   toggle.addEventListener('click', function(e) {
-			//     e.preventDefault();
-			//     e.stopPropagation();
-			//     var isOpen = menu.classList.contains('show');
-			//     menu.classList.toggle('show', !isOpen);
-			//     toggle.setAttribute('aria-expanded', !isOpen);
-			//   });
-
-			//   // Close on outside click
-			//   document.addEventListener('click', function(e) {
-			//     if (!toggle.contains(e.target) && !menu.contains(e.target)) {
-			//       menu.classList.remove('show');
-			//       toggle.setAttribute('aria-expanded', 'false');
-			//     }
-			//   });
-
-			//   // Close on ESC
-			//   document.addEventListener('keydown', function(e) {
-			//     if (e.key === 'Escape') {
-			//       menu.classList.remove('show');
-			//       toggle.setAttribute('aria-expanded', 'false');
-			//     }
-			//   });
-			// }
-
-			function cbInitLogout() {
-				document.querySelectorAll('.cb-logout-btn').forEach(function (btn) {
-					btn.addEventListener('click', function (e) {
-						e.preventDefault();
-						localStorage.removeItem('cb_token');
-						localStorage.removeItem('cb_user');
-						localStorage.removeItem('cb_cart');
-						cbUpdateNavbar();
-						window.location.href = 'index.html';
-					});
+				}).catch(function () {
+					grid.html('<div class="col-12 text-center py-5"><h4 class="text-danger">Unable to load menu.</h4><p class="text-muted">Please ensure backend server is running on port 5000.</p></div>');
 				});
 			}
 
-			document.addEventListener('DOMContentLoaded', function () {
-				cbUpdateNavbar();
-				cbInitDropdown();
-				cbInitLogout();
-			});
-		})();
-	</script>
+			function renderProducts(products) {
+				var grid = $('#cb-products-grid');
+				grid.empty();
 
+				products.forEach(function (prod) {
+					var imgUrl = prod.image || 'images/menu-1.jpg';
+					var isAvail = prod.isAvailable !== false;
+					var isCoffeeOrDrink = prod.category === 'coffee' || prod.category === 'drinks';
+
+					var btnHtml = isAvail
+						? (isCoffeeOrDrink
+							? '<button class="btn btn-primary btn-outline-primary btn-sm px-3 py-2 btn-customize-item" data-id="' + prod._id + '">Customize &amp; Add</button>'
+							: '<button class="btn btn-primary btn-outline-primary btn-sm px-3 py-2 btn-direct-add" data-id="' + prod._id + '">Add to Cart</button>')
+						: '<button class="btn btn-secondary btn-sm px-3 py-2" disabled>Sold Out</button>';
+
+					var badgeHtml = isAvail ? '' : '<span class="cb-badge-soldout">Unavailable</span>';
+
+					var col = $(
+						'<div class="col-lg-3 col-md-6 col-sm-12 d-flex">' +
+							'<div class="cb-product-card w-100">' +
+								'<div class="cb-product-img" style="background-image:url(' + imgUrl + ');">' +
+									badgeHtml +
+								'</div>' +
+								'<div class="cb-product-body">' +
+									'<h4 class="cb-product-title">' + prod.name + '</h4>' +
+									'<p class="cb-product-desc">' + (prod.description || '') + '</p>' +
+									'<div class="cb-product-price">' + API.formatINR(prod.price) + '</div>' +
+									'<div>' + btnHtml + '</div>' +
+								'</div>' +
+							'</div>' +
+						'</div>'
+					);
+					grid.append(col);
+				});
+			}
+
+			loadMenu();
+
+			/* ── CATEGORY FILTERING ── */
+			$('#cb-category-tabs .cb-category-pill').on('click', function () {
+				$('#cb-category-tabs .cb-category-pill').removeClass('active');
+				$(this).addClass('active');
+				activeCategory = $(this).data('cat');
+				loadMenu();
+			});
+
+			/* ── SEARCH FILTERING (Debounced) ── */
+			var searchTimer = null;
+			$('#cb-menu-search').on('input', function () {
+				clearTimeout(searchTimer);
+				var val = $(this).val().trim();
+				searchTimer = setTimeout(function () {
+					searchQuery = val;
+					loadMenu();
+				}, 300);
+			});
+
+			/* ── DIRECT ADD TO CART ── */
+			$(document).on('click', '.btn-direct-add', function (e) {
+				e.preventDefault();
+				var prodId = $(this).data('id');
+				var prod = allProducts.find(function (p) { return p._id === prodId; });
+				if (!prod) return;
+
+				API.cart.add({
+					productId: prod._id,
+					name: prod.name,
+					price: prod.price,
+					image: prod.image,
+					quantity: 1,
+					size: 'Regular',
+					milk: 'Standard',
+					sugar: 'Normal'
+				});
+
+				API.showAlert(prod.name + ' added to cart! ☕');
+				var btn = $(this);
+				btn.text('Added! ✓').prop('disabled', true);
+				setTimeout(function () {
+					btn.text('Add to Cart').prop('disabled', false);
+				}, 1200);
+			});
+
+			/* ── OPEN CUSTOMIZATION MODAL ── */
+			$(document).on('click', '.btn-customize-item', function (e) {
+				e.preventDefault();
+				var prodId = $(this).data('id');
+				var prod = allProducts.find(function (p) { return p._id === prodId; });
+				if (!prod) return;
+
+				currentCustomizingProduct = prod;
+
+				$('#custModalTitle').text('Customize ' + prod.name);
+				$('#custModalName').text(prod.name);
+				$('#custModalImg').css('background-image', 'url(' + (prod.image || 'images/menu-1.jpg') + ')');
+				$('#custModalBasePrice').text(API.formatINR(prod.price));
+				$('#custQtyVal').val(1);
+
+				// Configure options visibility
+				if (prod.category === 'coffee') {
+					$('#optGroupMilk, #optGroupSugar, #optGroupSize').show();
+				} else if (prod.category === 'drinks') {
+					$('#optGroupSize').show();
+					$('#optGroupMilk, #optGroupSugar').show();
+				} else {
+					$('#optGroupMilk, #optGroupSugar').hide();
+				}
+
+				recalcModalTotal();
+				$('#customizationModal').modal('show');
+			});
+
+			function recalcModalTotal() {
+				if (!currentCustomizingProduct) return;
+				var base = parseFloat(currentCustomizingProduct.price);
+				var sizeExtra = parseFloat($('#selSize option:selected').data('extra') || 0);
+				var milkStr = $('#selMilk').val() || '';
+				var milkExtra = milkStr.includes('+₹30') ? 30 : 0;
+				var qty = parseInt($('#custQtyVal').val(), 10) || 1;
+
+				var unitPrice = base + sizeExtra + milkExtra;
+				var total = unitPrice * qty;
+				$('#custModalTotalPrice').text(API.formatINR(total));
+			}
+
+			$('#selSize, #selMilk, #selSugar').on('change', recalcModalTotal);
+
+			$('#custQtyPlus').on('click', function () {
+				var q = parseInt($('#custQtyVal').val(), 10) || 1;
+				$('#custQtyVal').val(q + 1);
+				recalcModalTotal();
+			});
+
+			$('#custQtyMinus').on('click', function () {
+				var q = parseInt($('#custQtyVal').val(), 10) || 1;
+				if (q > 1) {
+					$('#custQtyVal').val(q - 1);
+					recalcModalTotal();
+				}
+			});
+
+			/* ── CONFIRM CUSTOMIZATION ADD ── */
+			$('#custConfirmAddBtn').on('click', function () {
+				if (!currentCustomizingProduct) return;
+
+				var base = parseFloat(currentCustomizingProduct.price);
+				var sizeExtra = parseFloat($('#selSize option:selected').data('extra') || 0);
+				var milkStr = $('#selMilk').val() || '';
+				var milkExtra = milkStr.includes('+₹30') ? 30 : 0;
+				var unitPrice = base + sizeExtra + milkExtra;
+				var qty = parseInt($('#custQtyVal').val(), 10) || 1;
+
+				API.cart.add({
+					productId: currentCustomizingProduct._id,
+					name: currentCustomizingProduct.name,
+					price: unitPrice,
+					image: currentCustomizingProduct.image,
+					quantity: qty,
+					size: $('#selSize').val() || 'Regular',
+					milk: $('#selMilk').val() || 'Standard',
+					sugar: $('#selSugar').val() || 'Normal'
+				});
+
+				$('#customizationModal').modal('hide');
+				API.showAlert(currentCustomizingProduct.name + ' added to cart! ☕');
+			});
+
+			/* ── BOOK A TABLE SUBMISSION ── */
+			$('.appointment-form').on('submit', function (e) {
+				e.preventDefault();
+				var form = $(this);
+				var firstName = form.find('input[placeholder="First Name"]').val().trim();
+				var lastName = form.find('input[placeholder="Last Name"]').val().trim();
+				var date = form.find('.appointment_date').val().trim();
+				var time = form.find('.appointment_time').val().trim();
+				var phone = form.find('input[placeholder="Phone"]').val().trim();
+				var message = form.find('textarea').val().trim();
+
+				if (!firstName || !lastName || !date || !time || !phone) {
+					API.showAlert('Please fill in name, date, time and phone number.', 'error');
+					return;
+				}
+
+				var btn = form.find('[type="submit"]');
+				btn.prop('disabled', true).val('Booking...');
+
+				API.bookings.book({
+					firstName: firstName,
+					lastName: lastName,
+					date: date,
+					time: time,
+					phone: phone,
+					guests: 2,
+					message: message
+				}).then(function (result) {
+					if (result.success) {
+						API.showAlert(result.message || 'Table booked successfully! ☕');
+						form[0].reset();
+					} else {
+						API.showAlert(result.message || 'Booking could not be confirmed', 'error');
+					}
+					btn.prop('disabled', false).val('Book Table');
+				}).catch(function () {
+					API.showAlert('Could not reach server. Please try again.', 'error');
+					btn.prop('disabled', false).val('Book Table');
+				});
+			});
+		});
+	</script>
 </body>
 
 </html>

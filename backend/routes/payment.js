@@ -5,7 +5,20 @@ const { paypalClient } = require("../config/paypal");
 const Payment = require("../models/Payment");
 const Order = require("../models/Order");
 const Cart = require("../models/Cart");
-const { protect } = require("../middleware/auth");
+const { protect, adminOnly } = require("../middleware/auth");
+
+// ============================================================
+// GET /api/payment/config
+// Send PayPal client ID to frontend (no secret exposed)
+// ============================================================
+router.get("/config", (req, res) => {
+  res.json({
+    success: true,
+    clientId: process.env.PAYPAL_CLIENT_ID || "",
+    mode: process.env.PAYPAL_MODE || "sandbox",
+    currency: process.env.PAYPAL_CURRENCY || "USD",
+  });
+});
 
 // ============================================================
 // POST /api/payment/create-order
@@ -16,10 +29,18 @@ router.post("/create-order", protect, async (req, res) => {
     const { amount, orderId, items } = req.body;
 
     if (!amount || amount <= 0) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Invalid amount" });
+      return res.status(400).json({ success: false, message: "Invalid amount" });
     }
+
+    if (!process.env.PAYPAL_CLIENT_ID || !process.env.PAYPAL_CLIENT_SECRET) {
+      return res.status(503).json({
+        success: false,
+        message: "PayPal integration is not configured on this server. Please use Cash on Delivery."
+      });
+    }
+
+    const currency = process.env.PAYPAL_CURRENCY || "USD";
+    const formattedAmount = parseFloat(amount).toFixed(2);
 
     // Build PayPal order request
     const request = new checkoutNodeJssdk.orders.OrdersCreateRequest();
@@ -29,30 +50,30 @@ router.post("/create-order", protect, async (req, res) => {
       purchase_units: [
         {
           amount: {
-            currency_code: "USD",
-            value: parseFloat(amount).toFixed(2),
+            currency_code: currency,
+            value: formattedAmount,
             breakdown: {
               item_total: {
-                currency_code: "USD",
-                value: parseFloat(amount).toFixed(2),
+                currency_code: currency,
+                value: formattedAmount,
               },
             },
           },
-          items: items
+          items: items && items.length > 0
             ? items.map((item) => ({
-                name: item.name.substring(0, 127),
+                name: (item.name || "CoffeeBlend Item").substring(0, 127),
                 unit_amount: {
-                  currency_code: "USD",
-                  value: parseFloat(item.price).toFixed(2),
+                  currency_code: currency,
+                  value: parseFloat(item.price || 0).toFixed(2),
                 },
-                quantity: String(item.quantity),
+                quantity: String(item.quantity || 1),
               }))
             : [
                 {
-                  name: "CoffeeBlend Order",
+                  name: "CoffeeBlend Mumbai Order",
                   unit_amount: {
-                    currency_code: "USD",
-                    value: parseFloat(amount).toFixed(2),
+                    currency_code: currency,
+                    value: formattedAmount,
                   },
                   quantity: "1",
                 },
@@ -60,15 +81,12 @@ router.post("/create-order", protect, async (req, res) => {
         },
       ],
       application_context: {
-        brand_name: "CoffeeBlend",
+        brand_name: "CoffeeBlend Mumbai",
         locale: "en-US",
         landing_page: "BILLING",
         user_action: "PAY_NOW",
-        return_url:
-          "https://coffeeblend-rho.vercel.app/checkout.html?paypal=success",
-
-        cancel_url:
-          "https://coffeeblend-rho.vercel.app/checkout.html?paypal=cancel",
+        return_url: `${process.env.FRONTEND_URL || "http://localhost:5000"}/orders.html?payment=success`,
+        cancel_url: `${process.env.FRONTEND_URL || "http://localhost:5000"}/checkout.html?payment=cancelled`,
       },
     });
 
@@ -81,7 +99,7 @@ router.post("/create-order", protect, async (req, res) => {
       order: orderId || null,
       paypalOrderId: paypalOrder.result.id,
       amount: parseFloat(amount),
-      currency: "USD",
+      currency: currency,
       status: "created",
       rawResponse: paypalOrder.result,
     });
@@ -94,29 +112,36 @@ router.post("/create-order", protect, async (req, res) => {
     });
   } catch (err) {
     console.error("PayPal create error:", err);
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "PayPal order creation failed",
-        error: err.message,
-      });
+    res.status(500).json({
+      success: false,
+      message: "PayPal order creation failed",
+      error: err.message,
+    });
   }
 });
 
 // ============================================================
 // POST /api/payment/capture/:paypalOrderId
 // Capture payment after user approves on PayPal
-// ============================================================
+// ============================================
 router.post("/capture/:paypalOrderId", protect, async (req, res) => {
   try {
     const { paypalOrderId } = req.params;
-    const { cartItems, shippingAddress } = req.body;
+    const { cartItems, shippingAddress, fulfilmentType = 'pickup' } = req.body;
+
+    // Check if already captured to prevent duplicate processing
+    const existingPayment = await Payment.findOne({ paypalOrderId });
+    if (existingPayment && existingPayment.status === "captured") {
+      return res.json({
+        success: true,
+        message: "Payment already captured.",
+        orderId: existingPayment.order,
+        transactionId: existingPayment.paypalTransactionId
+      });
+    }
 
     // Capture payment via PayPal API
-    const request = new checkoutNodeJssdk.orders.OrdersCaptureRequest(
-      paypalOrderId,
-    );
+    const request = new checkoutNodeJssdk.orders.OrdersCaptureRequest(paypalOrderId);
     request.requestBody({});
 
     const captureData = await paypalClient().execute(request);
@@ -128,35 +153,47 @@ router.post("/capture/:paypalOrderId", protect, async (req, res) => {
       { paypalOrderId },
       {
         status: "captured",
-        paypalPayerId: payer.payer_id,
-        paypalTransactionId: capture.id,
-        payerEmail: payer.email_address,
-        payerName: `${payer.name.given_name} ${payer.name.surname}`,
+        paypalPayerId: payer ? payer.payer_id : "",
+        paypalTransactionId: capture ? capture.id : "",
+        payerEmail: payer ? payer.email_address : "",
+        payerName: payer && payer.name ? `${payer.name.given_name || ''} ${payer.name.surname || ''}`.trim() : "",
         rawResponse: captureData.result,
       },
-      { new: true },
+      { new: true, upsert: true }
     );
 
-    // Create order in MongoDB after successful payment
+    // Create order in MongoDB after verified payment
     let order = null;
     if (cartItems && cartItems.length > 0) {
       const totalAmount = cartItems.reduce(
-        (s, i) => s + i.price * i.quantity,
-        0,
+        (s, i) => s + parseFloat(i.price) * (parseInt(i.quantity, 10) || 1),
+        0
       );
+
       order = await Order.create({
         user: req.user._id,
-        items: cartItems,
-        totalAmount,
-        shippingAddress: shippingAddress || {},
+        items: cartItems.map(i => ({
+          name: i.name,
+          price: parseFloat(i.price),
+          quantity: parseInt(i.quantity, 10) || 1,
+          image: i.image || 'images/menu-1.jpg',
+          size: i.size || 'Regular',
+          milk: i.milk || 'Standard',
+          sugar: i.sugar || 'Normal'
+        })),
+        totalAmount: Math.round(totalAmount * 100) / 100,
+        fulfilmentType,
+        shippingAddress: fulfilmentType === 'delivery' ? (shippingAddress || {}) : {},
         paymentMethod: "PayPal",
-        status: "confirmed", // auto-confirm on PayPal payment
+        paymentStatus: "paid",
+        status: "confirmed", // auto-confirm on verified payment
+        paymentReference: capture.id
       });
 
       // Clear cart
       await Cart.findOneAndUpdate(
         { user: req.user._id },
-        { items: [], totalAmount: 0 },
+        { items: [], totalAmount: 0 }
       );
 
       // Link payment to order
@@ -168,41 +205,37 @@ router.post("/capture/:paypalOrderId", protect, async (req, res) => {
 
     res.json({
       success: true,
-      message: "Payment successful! 🎉",
+      message: "Payment successful! Order confirmed. 🎉",
       transactionId: capture.id,
-      payerEmail: payer.email_address,
-      payerName: `${payer.name.given_name} ${payer.name.surname}`,
-      amount: capture.amount.value,
+      payerEmail: payer ? payer.email_address : '',
+      payerName: payer && payer.name ? `${payer.name.given_name || ''} ${payer.name.surname || ''}`.trim() : '',
+      amount: capture.amount ? capture.amount.value : '',
       orderId: order ? order._id : null,
     });
   } catch (err) {
     console.error("PayPal capture error:", err);
 
-    // Mark payment as failed
     await Payment.findOneAndUpdate(
       { paypalOrderId: req.params.paypalOrderId },
-      { status: "failed" },
+      { status: "failed" }
     );
 
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Payment capture failed",
-        error: err.message,
-      });
+    res.status(500).json({
+      success: false,
+      message: "Payment capture failed",
+      error: err.message,
+    });
   }
 });
 
 // ============================================================
 // GET /api/payment/my-payments
-// Get logged-in user's payment history
 // ============================================================
 router.get("/my-payments", protect, async (req, res) => {
   try {
     const payments = await Payment.find({ user: req.user._id })
       .populate("order")
-      .sort("-createdAt");
+      .sort({ createdAt: -1 });
     res.json({ success: true, count: payments.length, payments });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
@@ -210,32 +243,18 @@ router.get("/my-payments", protect, async (req, res) => {
 });
 
 // ============================================================
-// GET /api/payment/all  (Admin)
+// GET /api/payment/all (Admin only)
 // ============================================================
-const { adminOnly } = require("../middleware/auth");
-router.get("/all", protect, adminOnly, async (req, res) => {
+router.get("/admin/all", protect, adminOnly, async (req, res) => {
   try {
     const payments = await Payment.find()
       .populate("user", "username email")
       .populate("order")
-      .sort("-createdAt");
+      .sort({ createdAt: -1 });
     res.json({ success: true, count: payments.length, payments });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
-});
-
-// ============================================================
-// GET /api/payment/config
-// Send PayPal client ID to frontend (no secret exposed)
-// ============================================================
-router.get("/config", (req, res) => {
-  res.json({
-    success: true,
-    clientId: process.env.PAYPAL_CLIENT_ID,
-    mode: process.env.PAYPAL_MODE || "sandbox",
-    currency: "USD",
-  });
 });
 
 module.exports = router;

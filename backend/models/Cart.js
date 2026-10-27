@@ -5,8 +5,11 @@ const CartItemSchema = new mongoose.Schema({
   name:      { type: String, required: true },
   price:     { type: Number, required: true },
   image:     { type: String, default: 'images/menu-1.jpg' },
-  quantity:  { type: Number, required: true, min: 1, default: 1 }
-}, { _id: false });
+  quantity:  { type: Number, required: true, min: 1, default: 1 },
+  size:      { type: String, default: 'Regular' },
+  milk:      { type: String, default: 'Standard' },
+  sugar:     { type: String, default: 'Normal' }
+}, { _id: true });
 
 const CartSchema = new mongoose.Schema({
   user: {

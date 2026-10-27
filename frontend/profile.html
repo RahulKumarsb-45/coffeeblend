@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>My Profile — CoffeeBlend</title>
+    <title>My Profile — CoffeeBlend Mumbai</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/business-management.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <style>
       body { background: #111; color: #fff; font-family: 'Poppins', sans-serif; }
 
@@ -28,38 +30,34 @@
 
       .cb-section { padding: 50px 0 70px; }
 
-      /* Avatar */
       .cb-avatar {
-        width: 90px; height: 90px;
+        width: 85px; height: 85px;
         border-radius: 50%;
         background: #c49b63;
         display: flex; align-items: center; justify-content: center;
-        font-size: 2.4rem; font-weight: 700;
-        color: #fff; margin: 0 auto 20px;
+        font-size: 2.2rem; font-weight: 700;
+        color: #fff; margin: 0 auto 16px;
         box-shadow: 0 4px 20px rgba(196,155,99,0.4);
         text-transform: uppercase;
       }
 
-      /* Profile card */
       .cb-profile-card {
-        background: #1e1e1e;
-        border: 1px solid #2e2e2e;
-        border-radius: 16px;
-        padding: 36px 30px;
-        text-align: center;
-        margin-bottom: 30px;
+        background: #181818;
+        border: 1px solid #282828;
+        border-radius: 14px;
+        padding: 30px 26px;
+        margin-bottom: 24px;
       }
-      .cb-profile-card h3 { font-size: 1.4rem; font-weight: 600; margin-bottom: 4px; color: #fff; }
-      .cb-profile-card .cb-email { color: #aaa; font-size: 0.88rem; margin-bottom: 16px; }
-      .cb-profile-card .cb-since { color: #666; font-size: 0.8rem; }
+      .cb-profile-card h3 { font-size: 1.35rem; font-weight: 600; margin-bottom: 4px; color: #fff; }
+      .cb-profile-card .cb-email { color: #aaa; font-size: 0.88rem; margin-bottom: 14px; }
+      .cb-profile-card .cb-since { color: #777; font-size: 0.82rem; }
       .cb-profile-card .cb-since span { color: #c49b63; }
 
-      /* Stats */
       .cb-stat-card {
-        background: #1e1e1e;
-        border: 1px solid #2e2e2e;
+        background: #181818;
+        border: 1px solid #282828;
         border-radius: 12px;
-        padding: 24px 20px;
+        padding: 22px 18px;
         text-align: center;
         margin-bottom: 20px;
         transition: border-color 0.2s;
@@ -68,16 +66,15 @@
       .cb-stat-card .cb-stat-val { font-size: 1.8rem; font-weight: 700; color: #c49b63; }
       .cb-stat-card .cb-stat-label { font-size: 0.82rem; color: #888; margin-top: 4px; }
 
-      /* Recent orders */
       .cb-section-title {
-        font-size: 1.1rem; font-weight: 600;
+        font-size: 1.15rem; font-weight: 600;
         color: #c49b63; margin-bottom: 18px;
         padding-bottom: 10px;
-        border-bottom: 1px solid #2e2e2e;
+        border-bottom: 1px solid #282828;
       }
       .cb-order-row {
         background: #1a1a1a;
-        border: 1px solid #2a2a2a;
+        border: 1px solid #242424;
         border-radius: 10px;
         padding: 16px 20px;
         margin-bottom: 12px;
@@ -87,10 +84,10 @@
         flex-wrap: wrap;
         gap: 10px;
       }
-      .cb-order-id   { font-size: 0.78rem; color: #666; }
-      .cb-order-name { font-size: 0.9rem; color: #ddd; font-weight: 500; }
+      .cb-order-id   { font-size: 0.78rem; color: #777; }
+      .cb-order-name { font-size: 0.92rem; color: #ddd; font-weight: 500; }
       .cb-order-date { font-size: 0.78rem; color: #888; }
-      .cb-order-total{ font-size: 0.95rem; color: #c49b63; font-weight: 600; }
+      .cb-order-total{ font-size: 0.98rem; color: #c49b63; font-weight: 600; }
 
       .cb-badge {
         display: inline-block; padding: 3px 10px;
@@ -100,7 +97,21 @@
       .cb-badge-confirmed { background: rgba(13,110,253,0.15); color: #6ea8fe; }
       .cb-badge-preparing { background: rgba(255,193,7,0.15);  color: #ffc107; }
       .cb-badge-delivered { background: rgba(25,135,84,0.15);  color: #75b798; }
+      .cb-badge-completed { background: rgba(25,135,84,0.15);  color: #75b798; }
       .cb-badge-cancelled { background: rgba(220,53,69,0.15);  color: #ea868f; }
+
+      .cb-form-control {
+        background: #202020 !important;
+        border: 1px solid #333 !important;
+        color: #fff !important;
+        border-radius: 6px !important;
+        padding: 10px 14px !important;
+        font-size: 0.9rem;
+      }
+      .cb-form-control:focus {
+        border-color: #c49b63 !important;
+        outline: none;
+      }
 
       .cb-empty { text-align:center; padding: 40px 20px; color: #666; }
       .cb-empty .cb-empty-icon { font-size: 2.5rem; margin-bottom: 12px; }
@@ -114,12 +125,12 @@
       }
       @keyframes cbSpin { to { transform: rotate(360deg); } }
 
-      /* Dropdown CSS */
+      /* Dropdown */
       .cb-user-dropdown-menu {
         background: #1a1a1a; border: none; border-radius: 8px;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.35); min-width: 180px; margin-top: 6px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.35); min-width: 190px; margin-top: 6px;
       }
-      .cb-user-dropdown-menu .dropdown-item { color: #e0e0e0; padding: 10px 18px; font-size: 0.93em; transition: background 0.15s; }
+      .cb-user-dropdown-menu .dropdown-item { color: #e0e0e0; padding: 10px 18px; font-size: 0.93em; }
       .cb-user-dropdown-menu .dropdown-item:hover { background: #c49b63; color: #fff; }
       .cb-user-dropdown-menu .dropdown-divider { border-color: #333; }
       #nav-user-dropdown .cb-user-toggle { display:flex; align-items:center; gap:5px; cursor:pointer; }
@@ -169,68 +180,1782 @@
 
     <!-- HERO -->
     <div class="cb-page-hero">
-      <h1>My Profile</h1>
-      <p>Manage your account and view your activity</p>
+      <h1>Customer Account</h1>
+      <p>Manage your CoffeeBlend profile, contact details, and order history</p>
     </div>
 
     <!-- CONTENT -->
     <section class="cb-section">
-      <div class="container">
+      <div class="container" style="max-width:1140px;">
         <div id="cb-loading" class="cb-loading">
           <div class="cb-spinner"></div>
           <div>Loading your profile...</div>
         </div>
 
+        <!-- ═══════════════════════ CUSTOMER PROFILE VIEW ═══════════════════════ -->
         <div id="cb-content" style="display:none;">
           <div class="row">
-
-            <!-- Left: Profile Card -->
-            <div class="col-lg-4 mb-4">
-              <div class="cb-profile-card">
-                <div class="cb-avatar" id="cb-avatar">U</div>
-                <h3 id="cb-name">—</h3>
-                <div class="cb-email" id="cb-email">—</div>
-                <div class="cb-since">Member since <span id="cb-since">—</span></div>
+            <!-- Left: Profile summary & edit form -->
+            <div class="col-lg-5 col-md-12">
+              <div class="cb-profile-card text-center">
+                <div class="cb-avatar" id="cb-avatar">C</div>
+                <h3 id="cb-name">User</h3>
+                <div class="cb-email" id="cb-email">user@example.com</div>
+                <div class="cb-since">Member since: <span id="cb-since">—</span></div>
               </div>
 
+              <!-- Edit Profile Details Form -->
+              <div class="cb-profile-card">
+                <h5 class="text-white mb-3" style="font-size:1.05rem; color:#c49b63;">Edit Account Details</h5>
+                <form id="profile-form">
+                  <div class="form-group mb-3">
+                    <label style="font-size:0.8rem; color:#aaa;">Username</label>
+                    <input type="text" id="prof-username" class="form-control cb-form-control">
+                  </div>
+                  <div class="form-group mb-3">
+                    <label style="font-size:0.8rem; color:#aaa;">Phone Number</label>
+                    <input type="tel" id="prof-phone" class="form-control cb-form-control" placeholder="+91 98200 00000">
+                  </div>
+                  <div class="form-group mb-3">
+                    <label style="font-size:0.8rem; color:#aaa;">Default Delivery Address</label>
+                    <input type="text" id="prof-address" class="form-control cb-form-control" placeholder="Street, building, area in Mumbai">
+                  </div>
+                  <div class="form-group mb-3">
+                    <label style="font-size:0.8rem; color:#aaa;">City &amp; Pincode</label>
+                    <div class="d-flex gap-2">
+                      <input type="text" id="prof-city" class="form-control cb-form-control mr-2" value="Mumbai">
+                      <input type="text" id="prof-pincode" class="form-control cb-form-control" placeholder="400050" maxlength="6">
+                    </div>
+                  </div>
+                  <button type="submit" id="btn-save-profile" class="btn btn-primary btn-block py-2">
+                    Save Changes
+                  </button>
+                </form>
+              </div>
+            </div>
+
+            <!-- Right: Stats & Recent Orders -->
+            <div class="col-lg-7 col-md-12">
               <!-- Stats -->
               <div class="row">
-                <div class="col-6">
+                <div class="col-4">
                   <div class="cb-stat-card">
                     <div class="cb-stat-val" id="cb-total-orders">0</div>
                     <div class="cb-stat-label">Total Orders</div>
                   </div>
                 </div>
-                <div class="col-6">
+                <div class="col-4">
                   <div class="cb-stat-card">
-                    <div class="cb-stat-val" id="cb-total-spent">₹0</div>
+                    <div class="cb-stat-val" id="cb-total-spent">₹0.00</div>
                     <div class="cb-stat-label">Total Spent</div>
                   </div>
                 </div>
-                <div class="col-12">
+                <div class="col-4">
                   <div class="cb-stat-card">
-                    <div class="cb-stat-val" style="font-size:1rem;" id="cb-last-order">—</div>
-                    <div class="cb-stat-label">Last Order</div>
+                    <div class="cb-stat-val text-warning" id="cb-loyalty-pts">0</div>
+                    <div class="cb-stat-label">Reward Points</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Recent orders list -->
+              <div class="cb-profile-card">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <div class="cb-section-title mb-0" style="border:none; padding:0;">Recent Orders</div>
+                  <a href="orders.html" style="color:#c49b63; font-size:0.85rem;">View All Orders &rarr;</a>
+                </div>
+                <div id="cb-orders-list">
+                  <p class="text-muted">Loading orders...</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- EXACTLY ONE ADMIN-ONLY ENTRY BUTTON (Rendered ONLY if user is verified admin) -->
+          <div id="cb-admin-entry-section" style="display:none;" class="mt-4 pt-4 text-center border-top border-secondary">
+            <button type="button" id="btn-open-business-management" class="btn-business-management-entry">
+              <span class="bm-shield-icon">🛡️</span>
+              <span>Business Management</span>
+            </button>
+            <div style="font-size:0.84rem; color:#aaa; margin-top:10px;">
+              Executive Workspace for Operations, Product Management &amp; Store Analytics
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════ DEDICATED BUSINESS MANAGEMENT WORKSPACE ═══════════════════════ -->
+        <div id="cb-business-management-workspace" class="business-management-workspace" style="display:none;">
+          <!-- Top Bar -->
+          <div class="bm-topbar">
+            <div class="bm-brand-block">
+              <h2>
+                <span>🛡️ Business Management</span>
+                <small>CoffeeBlend Operations &amp; PM Workspace</small>
+              </h2>
+              <div class="bm-topbar-desc">
+                Authorized entry point for designated administrator (kumar162339@gmail.com)
+              </div>
+            </div>
+            <div class="bm-topbar-actions">
+              <button type="button" id="bm-btn-refresh" class="bm-btn-ghost">
+                <span>🔄</span> Refresh Data
+              </button>
+              <button type="button" class="bm-btn-ghost bm-btn-back-to-profile">
+                <span>←</span> Return to Customer Profile
+              </button>
+            </div>
+          </div>
+
+          <!-- Navigation & Breadcrumbs Strip -->
+          <div class="bm-nav-strip">
+            <div class="bm-breadcrumbs">
+              <a class="bm-btn-back-to-hub">🏢 Business Hub</a>
+              <span class="bm-sep" id="bm-breadcrumb-nav" style="display:none;">/</span>
+              <span class="bm-current" id="bm-current-breadcrumb">Management Hub</span>
+            </div>
+            <div>
+              <button type="button" class="bm-btn-outline bm-btn-sm bm-btn-back-to-hub">
+                ← Return to Hub
+              </button>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════ HUB VIEW: 21 FEATURE CARDS ═══════════════════════ -->
+          <div id="bm-view-hub" class="bm-hub-container bm-section-view active">
+            <div class="bm-hub-header">
+              <h3>Executive Command Center</h3>
+              <p>Select any module below to open its dedicated full-colour management view.</p>
+            </div>
+
+            <div class="bm-grid">
+              <!-- 1. Overview -->
+              <div class="bm-feature-card bm-card-overview" data-section="overview">
+                <div class="bm-card-icon-wrap">📊</div>
+                <div class="bm-card-title">Overview <span class="bm-arrow">&rarr;</span></div>
+                <p class="bm-card-desc">Today's orders, eligible revenue, low-stock alerts, and urgent tasks.</p>
+              </div>
+
+              <!-- 2. Analytics Dashboard -->
+              <div class="bm-feature-card bm-card-analytics" data-section="analytics">
+                <div class="bm-card-icon-wrap">📈</div>
+                <div class="bm-card-title">Analytics Dashboard <span class="bm-arrow">&rarr;</span></div>
+                <p class="bm-card-desc">Interactive real-database revenue trends, status distribution &amp; customer insights.</p>
+              </div>
+
+              <!-- 3. Orders Management -->
+              <div class="bm-feature-card bm-card-orders" data-section="orders">
+                <div class="bm-card-icon-wrap">☕</div>
+                <div class="bm-card-title">Orders Management <span class="bm-arrow">&rarr;</span></div>
+                <p class="bm-card-desc">Search, filter by fulfilment, update prep status, and audit order histories.</p>
+              </div>
+
+              <!-- 4. Products & Menu -->
+              <div class="bm-feature-card bm-card-products" data-section="products">
+                <div class="bm-card-icon-wrap">🥐</div>
+                <div class="bm-card-title">Products &amp; Menu <span class="bm-arrow">&rarr;</span></div>
+                <p class="bm-card-desc">Add gourmet items, manage pricing, descriptions, and toggle availability.</p>
+              </div>
+
+              <!-- 5. Inventory & Ingredients -->
+              <div class="bm-feature-card bm-card-inventory" data-section="inventory">
+                <div class="bm-card-icon-wrap">📦</div>
+                <div class="bm-card-title">Inventory &amp; Ingredients <span class="bm-arrow">&rarr;</span></div>
+                <p class="bm-card-desc">Track espresso beans, dairy, packaging, restock alerts, and stock deductions.</p>
+              </div>
+
+              <!-- 6. Customer Management -->
+              <div class="bm-feature-card bm-card-customers" data-section="customers">
+                <div class="bm-card-icon-wrap">👥</div>
+                <div class="bm-card-title">Customer Management <span class="bm-arrow">&rarr;</span></div>
+                <p class="bm-card-desc">Directory of registered patrons, order frequencies, spend, and repeat status.</p>
+              </div>
+
+              <!-- 7. Loyalty Program -->
+              <div class="bm-feature-card bm-card-loyalty" data-section="loyalty">
+                <div class="bm-card-icon-wrap">🎁</div>
+                <div class="bm-card-title">Loyalty Program <span class="bm-arrow">&rarr;</span></div>
+                <p class="bm-card-desc">Reward point ledgers, transaction audit history, and manual adjustments.</p>
+              </div>
+
+              <!-- 8. Coupons & Offers -->
+              <div class="bm-feature-card bm-card-coupons" data-section="coupons">
+                <div class="bm-card-icon-wrap">🏷️</div>
+                <div class="bm-card-title">Coupons &amp; Offers <span class="bm-arrow">&rarr;</span></div>
+                <p class="bm-card-desc">Create discount codes, configure minimum orders, and monitor redemptions.</p>
+              </div>
+
+              <!-- 9. Marketing Campaigns -->
+              <div class="bm-feature-card bm-card-marketing" data-section="marketing">
+                <div class="bm-card-icon-wrap">📢</div>
+                <div class="bm-card-title">Marketing Campaigns <span class="bm-arrow">&rarr;</span></div>
+                <p class="bm-card-desc">Draft broadcasts, target customer segments, and dispatch email campaigns.</p>
+              </div>
+
+              <!-- 10. Bookings Management -->
+              <div class="bm-feature-card bm-card-bookings" data-section="bookings">
+                <div class="bm-card-icon-wrap">🍽️</div>
+                <div class="bm-card-title">Bookings Management <span class="bm-arrow">&rarr;</span></div>
+                <p class="bm-card-desc">Manage table reservations, date/time slots, guests, and seating status.</p>
+              </div>
+
+              <!-- 11. Reviews & Feedback -->
+              <div class="bm-feature-card bm-card-reviews" data-section="reviews">
+                <div class="bm-card-icon-wrap">⭐</div>
+                <div class="bm-card-title">Reviews &amp; Feedback <span class="bm-arrow">&rarr;</span></div>
+                <p class="bm-card-desc">Review genuine customer feedback, star ratings, and moderation actions.</p>
+              </div>
+
+              <!-- 12. Product Roadmap -->
+              <div class="bm-feature-card bm-card-roadmap" data-section="roadmap">
+                <div class="bm-card-icon-wrap">🗺️</div>
+                <div class="bm-card-title">Product Roadmap <span class="bm-arrow">&rarr;</span></div>
+                <p class="bm-card-desc">Track initiatives across Backlog, Planned, In Progress, Testing, and Released.</p>
+              </div>
+
+              <!-- 13. Customer Problem Backlog -->
+              <div class="bm-feature-card bm-card-problems" data-section="problems">
+                <div class="bm-card-icon-wrap">🧩</div>
+                <div class="bm-card-title">Customer Problem Backlog <span class="bm-arrow">&rarr;</span></div>
+                <p class="bm-card-desc">Catalog pain points, evidence, severity, affected journeys, and resolutions.</p>
+              </div>
+
+              <!-- 14. Feature Prioritization -->
+              <div class="bm-feature-card bm-card-prioritization" data-section="prioritization">
+                <div class="bm-card-icon-wrap">⚖️</div>
+                <div class="bm-card-title">Feature Prioritization <span class="bm-arrow">&rarr;</span></div>
+                <p class="bm-card-desc">RICE scoring formula: Rank feature candidates with objective criteria.</p>
+              </div>
+
+              <!-- 15. Experiments & A/B Testing -->
+              <div class="bm-feature-card bm-card-experiments" data-section="experiments">
+                <div class="bm-card-icon-wrap">🧪</div>
+                <div class="bm-card-title">Experiments &amp; A/B Testing <span class="bm-arrow">&rarr;</span></div>
+                <p class="bm-card-desc">A/B test hypotheses, track real exposures, clicks, and conversion rates.</p>
+              </div>
+
+              <!-- 16. Product Funnel -->
+              <div class="bm-feature-card bm-card-funnel" data-section="funnel">
+                <div class="bm-card-icon-wrap">🌪️</div>
+                <div class="bm-card-title">Product Funnel <span class="bm-arrow">&rarr;</span></div>
+                <p class="bm-card-desc">Visual drop-off stages from view to cart, checkout start, and completion.</p>
+              </div>
+
+              <!-- 17. Product Goals & KPIs -->
+              <div class="bm-feature-card bm-card-goals" data-section="goals">
+                <div class="bm-card-icon-wrap">🎯</div>
+                <div class="bm-card-title">Product Goals &amp; KPIs <span class="bm-arrow">&rarr;</span></div>
+                <p class="bm-card-desc">Measure baseline vs target progress for strategic growth and café metrics.</p>
+              </div>
+
+              <!-- 18. Product Decision Log -->
+              <div class="bm-feature-card bm-card-decisions" data-section="decisions">
+                <div class="bm-card-icon-wrap">📜</div>
+                <div class="bm-card-title">Product Decision Log <span class="bm-arrow">&rarr;</span></div>
+                <p class="bm-card-desc">Record architectural choices, context, alternatives, and expected outcomes.</p>
+              </div>
+
+              <!-- 19. Reports & CSV Export -->
+              <div class="bm-feature-card bm-card-reports" data-section="reports">
+                <div class="bm-card-icon-wrap">📑</div>
+                <div class="bm-card-title">Reports &amp; CSV Export <span class="bm-arrow">&rarr;</span></div>
+                <p class="bm-card-desc">Instant downloadable exports for Orders, Inventory, Customers &amp; Products.</p>
+              </div>
+
+              <!-- 20. Settings -->
+              <div class="bm-feature-card bm-card-settings" data-section="settings">
+                <div class="bm-card-icon-wrap">⚙️</div>
+                <div class="bm-card-title">Settings <span class="bm-arrow">&rarr;</span></div>
+                <p class="bm-card-desc">Configure Mumbai delivery radius, fees, operating hours, and loyalty rules.</p>
+              </div>
+
+              <!-- 21. Admin Activity Log -->
+              <div class="bm-feature-card bm-card-activity" data-section="activity">
+                <div class="bm-card-icon-wrap">🛡️</div>
+                <div class="bm-card-title">Admin Activity Log <span class="bm-arrow">&rarr;</span></div>
+                <p class="bm-card-desc">Comprehensive immutable audit trail of all management updates and changes.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════ 1. OVERVIEW VIEW ═══════════════════════ -->
+          <div id="bm-view-overview" class="bm-section-view">
+            <div class="bm-view-header">
+              <div class="bm-view-title-wrap">
+                <h3>📊 Business Overview</h3>
+                <p>Live summary of today's operational demand, eligible revenue, and priority actions.</p>
+              </div>
+            </div>
+
+            <div class="bm-kpi-grid">
+              <div class="bm-kpi-card kpi-orders" style="cursor:pointer;" data-jump-section="orders">
+                <div class="bm-kpi-top">
+                  <span class="bm-kpi-label">Today's Orders</span>
+                  <div class="bm-kpi-icon">☕</div>
+                </div>
+                <div class="bm-kpi-value" id="ov-today-orders">0</div>
+                <p class="bm-kpi-desc">Orders placed since 00:00 today</p>
+              </div>
+
+              <div class="bm-kpi-card kpi-revenue" style="cursor:pointer;" data-jump-section="analytics">
+                <div class="bm-kpi-top">
+                  <span class="bm-kpi-label">Today's Revenue</span>
+                  <div class="bm-kpi-icon">₹</div>
+                </div>
+                <div class="bm-kpi-value text-success" id="ov-today-revenue">₹0</div>
+                <p class="bm-kpi-desc">Paid &amp; delivered revenue today</p>
+              </div>
+
+              <div class="bm-kpi-card kpi-revenue" style="cursor:pointer;" data-jump-section="analytics">
+                <div class="bm-kpi-top">
+                  <span class="bm-kpi-label">Eligible Revenue</span>
+                  <div class="bm-kpi-icon">💰</div>
+                </div>
+                <div class="bm-kpi-value" id="ov-eligible-revenue">₹0</div>
+                <p class="bm-kpi-desc">Cumulative fulfilled order value</p>
+              </div>
+
+              <div class="bm-kpi-card kpi-pending" style="cursor:pointer;" data-jump-section="orders">
+                <div class="bm-kpi-top">
+                  <span class="bm-kpi-label">Pending Orders</span>
+                  <div class="bm-kpi-icon">⏳</div>
+                </div>
+                <div class="bm-kpi-value" id="ov-pending-orders">0</div>
+                <p class="bm-kpi-desc">Awaiting kitchen confirmation</p>
+              </div>
+
+              <div class="bm-kpi-card kpi-completed" style="cursor:pointer;" data-jump-section="orders">
+                <div class="bm-kpi-top">
+                  <span class="bm-kpi-label">Completed Orders</span>
+                  <div class="bm-kpi-icon">✅</div>
+                </div>
+                <div class="bm-kpi-value" id="ov-completed-orders">0</div>
+                <p class="bm-kpi-desc">Fulfilled &amp; completed orders</p>
+              </div>
+
+              <div class="bm-kpi-card kpi-aov" style="cursor:pointer;" data-jump-section="analytics">
+                <div class="bm-kpi-top">
+                  <span class="bm-kpi-label">Average Order Value</span>
+                  <div class="bm-kpi-icon">🛒</div>
+                </div>
+                <div class="bm-kpi-value" id="ov-aov">₹0</div>
+                <p class="bm-kpi-desc">Eligible revenue / completed</p>
+              </div>
+
+              <div class="bm-kpi-card kpi-bestseller" style="cursor:pointer;" data-jump-section="products">
+                <div class="bm-kpi-top">
+                  <span class="bm-kpi-label">Best Seller</span>
+                  <div class="bm-kpi-icon">🏆</div>
+                </div>
+                <div class="bm-kpi-value" id="ov-bestseller" style="font-size:1.3rem;">—</div>
+                <p class="bm-kpi-desc">Most popular item by quantity</p>
+              </div>
+
+              <div class="bm-kpi-card kpi-lowstock" style="cursor:pointer;" data-jump-section="inventory">
+                <div class="bm-kpi-top">
+                  <span class="bm-kpi-label">Low-Stock Alerts</span>
+                  <div class="bm-kpi-icon">⚠️</div>
+                </div>
+                <div class="bm-kpi-value text-danger" id="ov-lowstock-count">0 items</div>
+                <p class="bm-kpi-desc">Ingredients below min threshold</p>
+              </div>
+            </div>
+
+            <!-- Recent Orders Needing Action Panel -->
+            <div class="bm-panel">
+              <div class="bm-panel-header">
+                <h4 class="bm-panel-title">⚡ Recent Orders Needing Immediate Action</h4>
+                <button type="button" class="bm-btn-outline bm-btn-sm" data-jump-section="orders">View All Orders &rarr;</button>
+              </div>
+              <div class="p-3" id="ov-recent-orders-list">
+                <p class="text-muted p-2">Loading active orders...</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════ 2. ANALYTICS DASHBOARD VIEW ═══════════════════════ -->
+          <div id="bm-view-analytics" class="bm-section-view">
+            <div class="bm-view-header">
+              <div class="bm-view-title-wrap">
+                <h3>📈 Analytics Dashboard</h3>
+                <p>Real-database metrics, trends, peak hours, and product distributions in Mumbai.</p>
+              </div>
+              <div class="bm-view-actions">
+                <select id="analytics-range-select" class="bm-select">
+                  <option value="today">Today</option>
+                  <option value="7d">Last 7 Days</option>
+                  <option value="30d" selected>Last 30 Days</option>
+                  <option value="90d">Last 90 Days</option>
+                  <option value="custom">Custom Date Range</option>
+                </select>
+                <div id="analytics-custom-dates" style="display:none;" class="d-flex align-items-center gap-2">
+                  <input type="date" id="analytics-start-date" class="bm-search-input" style="min-width:140px;">
+                  <span>to</span>
+                  <input type="date" id="analytics-end-date" class="bm-search-input" style="min-width:140px;">
+                  <button type="button" id="btn-analytics-custom-apply" class="bm-btn-primary bm-btn-sm">Apply</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Key Metric Definitions Alert -->
+            <div class="p-3 mb-4" style="background:#eff6ff; border-left:4px solid #3b82f6; border-radius:8px; font-size:0.85rem; color:#1e40af;">
+              <strong>Metric Definitions:</strong>
+              <strong>Eligible Revenue</strong> is the sum of delivered &amp; completed orders.
+              <strong>Average Order Value (AOV)</strong> is eligible revenue divided by completed orders.
+              <strong>Repeat Rate</strong> is the % of unique customers with >1 order.
+              <em>Note: Revenue is never labelled as profit without audited ingredient &amp; overhead cost data.</em>
+            </div>
+
+            <div class="bm-kpi-grid">
+              <div class="bm-kpi-card kpi-revenue">
+                <div class="bm-kpi-top"><span class="bm-kpi-label">Eligible Revenue</span><div class="bm-kpi-icon">₹</div></div>
+                <div class="bm-kpi-value text-success" id="an-revenue">₹0</div>
+                <p class="bm-kpi-desc">Fulfilled orders total</p>
+              </div>
+              <div class="bm-kpi-card kpi-orders">
+                <div class="bm-kpi-top"><span class="bm-kpi-label">Total Orders</span><div class="bm-kpi-icon">📦</div></div>
+                <div class="bm-kpi-value" id="an-orders">0</div>
+                <p class="bm-kpi-desc">Orders in selected period</p>
+              </div>
+              <div class="bm-kpi-card kpi-completed">
+                <div class="bm-kpi-top"><span class="bm-kpi-label">Completed</span><div class="bm-kpi-icon">✅</div></div>
+                <div class="bm-kpi-value" id="an-completed">0</div>
+                <p class="bm-kpi-desc">Successfully delivered/picked up</p>
+              </div>
+              <div class="bm-kpi-card kpi-pending">
+                <div class="bm-kpi-top"><span class="bm-kpi-label">Pending / Prep</span><div class="bm-kpi-icon">⏳</div></div>
+                <div class="bm-kpi-value" id="an-pending">0</div>
+                <p class="bm-kpi-desc">Active queue volume</p>
+              </div>
+              <div class="bm-kpi-card kpi-aov">
+                <div class="bm-kpi-top"><span class="bm-kpi-label">Average Basket</span><div class="bm-kpi-icon">🛒</div></div>
+                <div class="bm-kpi-value" id="an-aov">₹0</div>
+                <p class="bm-kpi-desc">Average spend per order</p>
+              </div>
+              <div class="bm-kpi-card kpi-repeat">
+                <div class="bm-kpi-top"><span class="bm-kpi-label">Repeat Rate</span><div class="bm-kpi-icon">🔁</div></div>
+                <div class="bm-kpi-value" id="an-repeat">0%</div>
+                <p class="bm-kpi-desc">Customers with >1 order</p>
+              </div>
+              <div class="bm-kpi-card kpi-bestseller">
+                <div class="bm-kpi-top"><span class="bm-kpi-label">Top Product</span><div class="bm-kpi-icon">☕</div></div>
+                <div class="bm-kpi-value" id="an-bestseller" style="font-size:1.3rem;">—</div>
+                <p class="bm-kpi-desc">Highest revenue generator</p>
+              </div>
+              <div class="bm-kpi-card kpi-lowstock">
+                <div class="bm-kpi-top"><span class="bm-kpi-label">Stock Issues</span><div class="bm-kpi-icon">⚠️</div></div>
+                <div class="bm-kpi-value text-danger" id="an-lowstock">0</div>
+                <p class="bm-kpi-desc">Low or out-of-stock items</p>
+              </div>
+            </div>
+
+            <!-- Charts Grid -->
+            <div class="row">
+              <div class="col-lg-8 col-md-12 mb-4">
+                <div class="bm-panel p-3">
+                  <h5 class="bm-panel-title mb-3">📈 Revenue Trend Over Time</h5>
+                  <div style="height:280px; position:relative;">
+                    <canvas id="chart-revenue"></canvas>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-12 mb-4">
+                <div class="bm-panel p-3">
+                  <h5 class="bm-panel-title mb-3">🍩 Category Sales</h5>
+                  <div style="height:280px; position:relative;">
+                    <canvas id="chart-categories"></canvas>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Right: Recent Orders -->
-            <div class="col-lg-8">
-              <div class="cb-section-title">Recent Orders</div>
-              <div id="cb-orders-list">
-                <div class="cb-empty">
-                  <div class="cb-empty-icon">☕</div>
-                  <div>No orders yet. <a href="menu.html">Start ordering!</a></div>
+            <div class="row">
+              <div class="col-lg-6 col-md-12 mb-4">
+                <div class="bm-panel p-3">
+                  <h5 class="bm-panel-title mb-3">🏆 Top Revenue Generating Products</h5>
+                  <div style="height:260px; position:relative;">
+                    <canvas id="chart-products"></canvas>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-12 mb-4">
+                <div class="bm-panel p-3">
+                  <h5 class="bm-panel-title mb-3">🕒 Peak Ordering Hours (IST)</h5>
+                  <div style="height:260px; position:relative;">
+                    <canvas id="chart-peak-hours"></canvas>
+                  </div>
                 </div>
               </div>
             </div>
 
+            <div class="row">
+              <div class="col-lg-6 col-md-12 mb-4">
+                <div class="bm-panel p-3">
+                  <h5 class="bm-panel-title mb-3">📊 Order Status Breakdown</h5>
+                  <div style="height:250px; position:relative;">
+                    <canvas id="chart-statuses"></canvas>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-12 mb-4">
+                <div class="bm-panel p-3">
+                  <h5 class="bm-panel-title mb-3">🌪️ Checkout &amp; Conversion Funnel</h5>
+                  <div style="height:250px; position:relative;">
+                    <canvas id="chart-funnel"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════ 3. ORDERS MANAGEMENT VIEW ═══════════════════════ -->
+          <div id="bm-view-orders" class="bm-section-view">
+            <div class="bm-view-header">
+              <div class="bm-view-title-wrap">
+                <h3>☕ Orders Management</h3>
+                <p>Filter, search, track status lifecycles, and audit fulfilment details.</p>
+              </div>
+              <div class="bm-view-actions">
+                <button type="button" class="bm-btn-outline bm-btn-sm btn-export-csv" data-type="orders">
+                  📥 Export Orders CSV
+                </button>
+              </div>
+            </div>
+
+            <div class="bm-filter-bar">
+              <input type="text" id="bm-order-search" class="bm-search-input" placeholder="🔍 Search Order ID or Customer...">
+              <select id="bm-order-status-filter" class="bm-select">
+                <option value="all">All Statuses</option>
+                <option value="pending">Pending</option>
+                <option value="confirmed">Confirmed</option>
+                <option value="preparing">Preparing</option>
+                <option value="ready">Ready</option>
+                <option value="completed">Completed</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+              <select id="bm-order-type-filter" class="bm-select">
+                <option value="all">All Fulfilment</option>
+                <option value="pickup">Pickup</option>
+                <option value="delivery">Delivery</option>
+                <option value="dine_in">Dine-in</option>
+              </select>
+            </div>
+
+            <div class="bm-panel">
+              <div class="bm-table-responsive">
+                <table class="bm-table">
+                  <thead>
+                    <tr>
+                      <th>Order ID</th>
+                      <th>Customer</th>
+                      <th>Items Breakdown</th>
+                      <th>Total Amount</th>
+                      <th>Fulfilment</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="bm-orders-tbody">
+                    <tr><td colspan="7" class="text-center text-muted p-4">Loading orders...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════ 4. PRODUCTS & MENU VIEW ═══════════════════════ -->
+          <div id="bm-view-products" class="bm-section-view">
+            <div class="bm-view-header">
+              <div class="bm-view-title-wrap">
+                <h3>🥐 Products &amp; Menu Management</h3>
+                <p>Catalogue management in INR (₹), availability toggles, and item additions.</p>
+              </div>
+              <div class="bm-view-actions">
+                <button type="button" class="bm-btn-primary" data-open-modal="modal-new-product">
+                  + Add New Product
+                </button>
+              </div>
+            </div>
+
+            <div class="bm-filter-bar">
+              <input type="text" id="bm-product-search" class="bm-search-input" placeholder="🔍 Search Products...">
+              <select id="bm-product-cat-filter" class="bm-select">
+                <option value="all">All Categories</option>
+                <option value="coffee">Coffee</option>
+                <option value="drinks">Drinks &amp; Smoothies</option>
+                <option value="desserts">Desserts &amp; Pastries</option>
+                <option value="burgers">Burgers &amp; Sandwiches</option>
+                <option value="dishes">Gourmet Mains</option>
+              </select>
+            </div>
+
+            <div class="bm-panel">
+              <div class="bm-table-responsive">
+                <table class="bm-table">
+                  <thead>
+                    <tr>
+                      <th>Image</th>
+                      <th>Item Name &amp; Description</th>
+                      <th>Category</th>
+                      <th>Price (₹)</th>
+                      <th>Status</th>
+                      <th>Deactivate</th>
+                    </tr>
+                  </thead>
+                  <tbody id="bm-products-tbody">
+                    <tr><td colspan="6" class="text-center text-muted p-4">Loading catalogue...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════ 5. INVENTORY & INGREDIENTS VIEW ═══════════════════════ -->
+          <div id="bm-view-inventory" class="bm-section-view">
+            <div class="bm-view-header">
+              <div class="bm-view-title-wrap">
+                <h3>📦 Inventory &amp; Ingredients Tracking</h3>
+                <p>Real stock monitoring, recipe usage deductions, and threshold alerts.</p>
+              </div>
+              <div class="bm-view-actions">
+                <button type="button" class="bm-btn-outline bm-btn-sm btn-export-csv" data-type="inventory">
+                  📥 Export Inventory CSV
+                </button>
+              </div>
+            </div>
+
+            <div class="bm-panel">
+              <div class="bm-table-responsive">
+                <table class="bm-table">
+                  <thead>
+                    <tr>
+                      <th>Ingredient Name</th>
+                      <th>Category</th>
+                      <th>Current Stock</th>
+                      <th>Min Threshold</th>
+                      <th>Cost / Unit</th>
+                      <th>Status</th>
+                      <th>Quick Restock</th>
+                    </tr>
+                  </thead>
+                  <tbody id="bm-inventory-tbody">
+                    <tr><td colspan="7" class="text-center text-muted p-4">Loading inventory...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════ 6. CUSTOMER MANAGEMENT VIEW ═══════════════════════ -->
+          <div id="bm-view-customers" class="bm-section-view">
+            <div class="bm-view-header">
+              <div class="bm-view-title-wrap">
+                <h3>👥 Customer Management</h3>
+                <p>Privacy-protected directory of registered customers, purchase volume &amp; loyalty balances.</p>
+              </div>
+              <div class="bm-view-actions">
+                <button type="button" class="bm-btn-outline bm-btn-sm btn-export-csv" data-type="customers">
+                  📥 Export Customers CSV
+                </button>
+              </div>
+            </div>
+
+            <div class="bm-filter-bar">
+              <input type="text" id="bm-customer-search" class="bm-search-input" placeholder="🔍 Search Name, Email, or Phone...">
+            </div>
+
+            <div class="bm-panel">
+              <div class="bm-table-responsive">
+                <table class="bm-table">
+                  <thead>
+                    <tr>
+                      <th>Username</th>
+                      <th>Email Address</th>
+                      <th>Phone</th>
+                      <th>City</th>
+                      <th>Orders Placed</th>
+                      <th>Total Spent</th>
+                      <th>Points</th>
+                      <th>Joined Date</th>
+                    </tr>
+                  </thead>
+                  <tbody id="bm-customers-tbody">
+                    <tr><td colspan="8" class="text-center text-muted p-4">Loading customers...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════ 7. LOYALTY PROGRAM VIEW ═══════════════════════ -->
+          <div id="bm-view-loyalty" class="bm-section-view">
+            <div class="bm-view-header">
+              <div class="bm-view-title-wrap">
+                <h3>🎁 Loyalty Program Ledger</h3>
+                <p>Audit points earned, redeemed, and customer rewards ledger.</p>
+              </div>
+            </div>
+
+            <div class="p-3 mb-4" style="background:#fdf2f8; border-left:4px solid #db2777; border-radius:8px; font-size:0.86rem; color:#831843;">
+              <strong>Active Loyalty Rules:</strong> Customers earn <strong>1 Point per ₹10 spent</strong> on completed orders. Each point redeems for <strong>₹1 Discount</strong> (capped at 50% of subtotal).
+            </div>
+
+            <div class="bm-panel">
+              <div class="bm-table-responsive">
+                <table class="bm-table">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Customer</th>
+                      <th>Points Change</th>
+                      <th>Type</th>
+                      <th>Description</th>
+                      <th>Balance After</th>
+                    </tr>
+                  </thead>
+                  <tbody id="bm-loyalty-tbody">
+                    <tr><td colspan="6" class="text-center text-muted p-4">Loading loyalty ledger...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════ 8. COUPONS & OFFERS VIEW ═══════════════════════ -->
+          <div id="bm-view-coupons" class="bm-section-view">
+            <div class="bm-view-header">
+              <div class="bm-view-title-wrap">
+                <h3>🏷️ Coupons &amp; Promotional Offers</h3>
+                <p>Manage promo codes, minimum spend restrictions, and redemptions.</p>
+              </div>
+              <div class="bm-view-actions">
+                <button type="button" class="bm-btn-primary" data-open-modal="modal-new-coupon">
+                  + Create New Coupon
+                </button>
+              </div>
+            </div>
+
+            <div class="bm-panel">
+              <div class="bm-table-responsive">
+                <table class="bm-table">
+                  <thead>
+                    <tr>
+                      <th>Coupon Code</th>
+                      <th>Description</th>
+                      <th>Discount</th>
+                      <th>Min Spend</th>
+                      <th>Usage</th>
+                      <th>Expiry</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="bm-coupons-tbody">
+                    <tr><td colspan="8" class="text-center text-muted p-4">Loading coupons...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════ 9. MARKETING CAMPAIGNS VIEW ═══════════════════════ -->
+          <div id="bm-view-marketing" class="bm-section-view">
+            <div class="bm-view-header">
+              <div class="bm-view-title-wrap">
+                <h3>📢 Marketing Campaigns</h3>
+                <p>Customer outreach broadcasts via Email and promotional coupons.</p>
+              </div>
+              <div class="bm-view-actions">
+                <button type="button" class="bm-btn-primary" data-open-modal="modal-new-campaign">
+                  + New Campaign
+                </button>
+              </div>
+            </div>
+
+            <div class="bm-panel">
+              <div class="bm-table-responsive">
+                <table class="bm-table">
+                  <thead>
+                    <tr>
+                      <th>Campaign Title</th>
+                      <th>Channel</th>
+                      <th>Audience Segment</th>
+                      <th>Attached Coupon</th>
+                      <th>Status</th>
+                      <th>Dispatched Details</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="bm-campaigns-tbody">
+                    <tr><td colspan="7" class="text-center text-muted p-4">Loading marketing campaigns...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════ 10. BOOKINGS MANAGEMENT VIEW ═══════════════════════ -->
+          <div id="bm-view-bookings" class="bm-section-view">
+            <div class="bm-view-header">
+              <div class="bm-view-title-wrap">
+                <h3>🍽️ Table Reservations Management</h3>
+                <p>Track dine-in bookings, party sizes, and reservation capacity.</p>
+              </div>
+            </div>
+
+            <div class="bm-panel">
+              <div class="bm-table-responsive">
+                <table class="bm-table">
+                  <thead>
+                    <tr>
+                      <th>Guest Name</th>
+                      <th>Phone</th>
+                      <th>Date &amp; Time</th>
+                      <th>Guests</th>
+                      <th>Notes</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="bm-bookings-tbody">
+                    <tr><td colspan="7" class="text-center text-muted p-4">Loading bookings...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════ 11. REVIEWS & FEEDBACK VIEW ═══════════════════════ -->
+          <div id="bm-view-reviews" class="bm-section-view">
+            <div class="bm-view-header">
+              <div class="bm-view-title-wrap">
+                <h3>⭐ Reviews &amp; Customer Feedback</h3>
+                <p>Genuine customer ratings stored directly in your MongoDB database.</p>
+              </div>
+            </div>
+
+            <div class="p-3 mb-4" style="background:#fef3c7; border-left:4px solid #d97706; border-radius:8px; font-size:0.86rem; color:#92400e;">
+              <strong>Note on Authenticity:</strong> All reviews displayed below are real feedback entries submitted by authenticated users through the CoffeeBlend web application.
+            </div>
+
+            <div class="bm-panel">
+              <div class="bm-table-responsive">
+                <table class="bm-table">
+                  <thead>
+                    <tr>
+                      <th>Customer</th>
+                      <th>Product</th>
+                      <th>Rating</th>
+                      <th>Customer Comment</th>
+                      <th>Date</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="bm-reviews-tbody">
+                    <tr><td colspan="6" class="text-center text-muted p-4">Loading customer reviews...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════ 12. PRODUCT ROADMAP VIEW ═══════════════════════ -->
+          <div id="bm-view-roadmap" class="bm-section-view">
+            <div class="bm-view-header">
+              <div class="bm-view-title-wrap">
+                <h3>🗺️ Product Roadmap</h3>
+                <p>Track initiatives from Backlog to Planned, In Progress, Testing, and Released.</p>
+              </div>
+              <div class="bm-view-actions">
+                <button type="button" class="bm-btn-primary" data-open-modal="modal-new-roadmap">
+                  + Add Roadmap Feature
+                </button>
+              </div>
+            </div>
+
+            <div class="bm-panel">
+              <div class="bm-table-responsive">
+                <table class="bm-table">
+                  <thead>
+                    <tr>
+                      <th>Feature Title &amp; Scope</th>
+                      <th>Category</th>
+                      <th>Milestone</th>
+                      <th>Owner</th>
+                      <th>Priority</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="bm-roadmap-tbody">
+                    <tr><td colspan="7" class="text-center text-muted p-4">Loading roadmap items...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════ 13. CUSTOMER PROBLEM BACKLOG VIEW ═══════════════════════ -->
+          <div id="bm-view-problems" class="bm-section-view">
+            <div class="bm-view-header">
+              <div class="bm-view-title-wrap">
+                <h3>🧩 Customer Problem Backlog</h3>
+                <p>Catalog user friction points, evidence, severity, affected journey, and solution progress.</p>
+              </div>
+              <div class="bm-view-actions">
+                <button type="button" class="bm-btn-primary" data-open-modal="modal-new-problem">
+                  + Log Customer Problem
+                </button>
+              </div>
+            </div>
+
+            <div class="bm-panel">
+              <div class="bm-table-responsive">
+                <table class="bm-table">
+                  <thead>
+                    <tr>
+                      <th>Problem Statement</th>
+                      <th>Customer Segment</th>
+                      <th>Severity</th>
+                      <th>Frequency</th>
+                      <th>Affected Journey</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="bm-problems-tbody">
+                    <tr><td colspan="7" class="text-center text-muted p-4">Loading customer problem statements...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════ 14. FEATURE PRIORITIZATION VIEW ═══════════════════════ -->
+          <div id="bm-view-prioritization" class="bm-section-view">
+            <div class="bm-view-header">
+              <div class="bm-view-title-wrap">
+                <h3>⚖️ Feature Prioritization (RICE Scoring)</h3>
+                <p>Transparent scoring formula: <code>Score = (Reach &times; Impact &times; Confidence) / Effort</code></p>
+              </div>
+              <div class="bm-view-actions">
+                <button type="button" class="bm-btn-primary" data-open-modal="modal-new-prioritization">
+                  + Add Feature for Prioritization
+                </button>
+              </div>
+            </div>
+
+            <div class="p-3 mb-4" style="background:#fff7ed; border-left:4px solid #ea580c; border-radius:8px; font-size:0.86rem; color:#9a3412;">
+              <strong>RICE Scoring Weights:</strong> Reach is estimated quarterly customers; Impact ranges from 0.25 (minimal) to 3 (massive); Confidence ranges from 50% to 100%; Effort is sprint person-weeks. All inputs are labeled as estimates.
+            </div>
+
+            <div class="bm-panel">
+              <div class="bm-table-responsive">
+                <table class="bm-table">
+                  <thead>
+                    <tr>
+                      <th>Feature Candidate</th>
+                      <th>Reach</th>
+                      <th>Impact</th>
+                      <th>Confidence</th>
+                      <th>Effort</th>
+                      <th>RICE Score</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="bm-prioritization-tbody">
+                    <tr><td colspan="7" class="text-center text-muted p-4">Loading prioritization data...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════ 15. EXPERIMENTS & A/B TESTING VIEW ═══════════════════════ -->
+          <div id="bm-view-experiments" class="bm-section-view">
+            <div class="bm-view-header">
+              <div class="bm-view-title-wrap">
+                <h3>🧪 Experiments &amp; A/B Testing</h3>
+                <p>Real event tracking for experiment keys: exposures, clicks, and conversion rates.</p>
+              </div>
+            </div>
+
+            <div class="p-3 mb-4" style="background:#faf5ff; border-left:4px solid #9333ea; border-radius:8px; font-size:0.86rem; color:#581c87;">
+              <strong>Statistical Significance Warning:</strong> Sample sizes under 100 sessions are highlighted as directional estimates. Do not declare a conclusive variant winner without adequate statistical power.
+            </div>
+
+            <div class="row">
+              <!-- Variant A -->
+              <div class="col-lg-6 col-md-12 mb-4">
+                <div class="bm-panel p-4">
+                  <span class="badge badge-primary px-3 py-1 mb-2">Variant A (Control)</span>
+                  <h4 style="color:#582f14; font-weight:700;">Standard "Order Now" Call-to-Action</h4>
+                  <p class="text-muted" style="font-size:0.86rem;">Direct link to menu without advance schedule emphasis.</p>
+
+                  <div class="row mt-4 text-center">
+                    <div class="col-4">
+                      <div style="font-size:1.6rem; font-weight:700; color:#2563eb;" id="exp-a-exposures">0</div>
+                      <small class="text-muted">Exposures</small>
+                    </div>
+                    <div class="col-4">
+                      <div style="font-size:1.6rem; font-weight:700; color:#7c3aed;" id="exp-a-clicks">0</div>
+                      <small class="text-muted">Clicks</small>
+                    </div>
+                    <div class="col-4">
+                      <div style="font-size:1.6rem; font-weight:700; color:#10b981;" id="exp-a-conversions">0</div>
+                      <small class="text-muted">Orders</small>
+                    </div>
+                  </div>
+
+                  <div class="mt-4 pt-3 border-top d-flex justify-content-between">
+                    <span>CTR: <strong id="exp-a-ctr">0.0%</strong></span>
+                    <span>Conversion Rate: <strong id="exp-a-cr" class="text-success">0.0%</strong></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Variant B -->
+              <div class="col-lg-6 col-md-12 mb-4">
+                <div class="bm-panel p-4">
+                  <span class="badge badge-success px-3 py-1 mb-2">Variant B (Challenger)</span>
+                  <h4 style="color:#582f14; font-weight:700;">"Schedule My Coffee" Advance Slot</h4>
+                  <p class="text-muted" style="font-size:0.86rem;">Emphasizes 20-minute advance scheduling for morning commuters.</p>
+
+                  <div class="row mt-4 text-center">
+                    <div class="col-4">
+                      <div style="font-size:1.6rem; font-weight:700; color:#2563eb;" id="exp-b-exposures">0</div>
+                      <small class="text-muted">Exposures</small>
+                    </div>
+                    <div class="col-4">
+                      <div style="font-size:1.6rem; font-weight:700; color:#7c3aed;" id="exp-b-clicks">0</div>
+                      <small class="text-muted">Clicks</small>
+                    </div>
+                    <div class="col-4">
+                      <div style="font-size:1.6rem; font-weight:700; color:#10b981;" id="exp-b-conversions">0</div>
+                      <small class="text-muted">Orders</small>
+                    </div>
+                  </div>
+
+                  <div class="mt-4 pt-3 border-top d-flex justify-content-between">
+                    <span>CTR: <strong id="exp-b-ctr">0.0%</strong></span>
+                    <span>Conversion Rate: <strong id="exp-b-cr" class="text-success">0.0%</strong></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════ 16. PRODUCT FUNNEL VIEW ═══════════════════════ -->
+          <div id="bm-view-funnel" class="bm-section-view">
+            <div class="bm-view-header">
+              <div class="bm-view-title-wrap">
+                <h3>🌪️ Product Funnel &amp; Drop-Off Stages</h3>
+                <p>Tracking customer flow from item views through checkout to completed orders.</p>
+              </div>
+            </div>
+
+            <div class="row text-center mb-4">
+              <div class="col-md-3 mb-3">
+                <div class="bm-panel p-3">
+                  <span class="text-muted" style="font-size:0.82rem;">1. PRODUCT VIEWS</span>
+                  <div class="bm-kpi-value text-primary mt-2" id="fn-views">0</div>
+                  <small class="text-muted">Catalogue browsed</small>
+                </div>
+              </div>
+              <div class="col-md-3 mb-3">
+                <div class="bm-panel p-3">
+                  <span class="text-muted" style="font-size:0.82rem;">2. ADD TO CART</span>
+                  <div class="bm-kpi-value text-info mt-2" id="fn-carts">0</div>
+                  <small class="text-muted">Conversion: <span id="fn-rate-cart">0%</span></small>
+                </div>
+              </div>
+              <div class="col-md-3 mb-3">
+                <div class="bm-panel p-3">
+                  <span class="text-muted" style="font-size:0.82rem;">3. CHECKOUT STARTS</span>
+                  <div class="bm-kpi-value text-warning mt-2" id="fn-checkouts">0</div>
+                  <small class="text-muted">Conversion: <span id="fn-rate-checkout">0%</span></small>
+                </div>
+              </div>
+              <div class="col-md-3 mb-3">
+                <div class="bm-panel p-3">
+                  <span class="text-muted" style="font-size:0.82rem;">4. COMPLETED ORDERS</span>
+                  <div class="bm-kpi-value text-success mt-2" id="fn-orders">0</div>
+                  <small class="text-muted">Conversion: <span id="fn-rate-order">0%</span></small>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-3 text-center" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px;">
+              Overall End-to-End Visitor Conversion Rate: <strong id="fn-rate-overall" class="text-success font-weight-bold" style="font-size:1.3rem;">0.0%</strong>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════ 17. PRODUCT GOALS & KPIS VIEW ═══════════════════════ -->
+          <div id="bm-view-goals" class="bm-section-view">
+            <div class="bm-view-header">
+              <div class="bm-view-title-wrap">
+                <h3>🎯 Product Goals &amp; KPIs</h3>
+                <p>Tracking baseline vs measured values across quarters.</p>
+              </div>
+              <div class="bm-view-actions">
+                <button type="button" class="bm-btn-primary" data-open-modal="modal-new-goal">
+                  + Add Product Goal
+                </button>
+              </div>
+            </div>
+
+            <div class="bm-panel">
+              <div class="bm-table-responsive">
+                <table class="bm-table">
+                  <thead>
+                    <tr>
+                      <th>Metric Name</th>
+                      <th>Baseline Value</th>
+                      <th>Current Measured</th>
+                      <th>Target Value</th>
+                      <th>Timeframe</th>
+                      <th>Owner</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="bm-goals-tbody">
+                    <tr><td colspan="7" class="text-center text-muted p-4">Loading goals...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════ 18. PRODUCT DECISION LOG VIEW ═══════════════════════ -->
+          <div id="bm-view-decisions" class="bm-section-view">
+            <div class="bm-view-header">
+              <div class="bm-view-title-wrap">
+                <h3>📜 Product Decision Log</h3>
+                <p>Architectural and operational decision records with context, evidence, and expected outcomes.</p>
+              </div>
+              <div class="bm-view-actions">
+                <button type="button" class="bm-btn-primary" data-open-modal="modal-new-decision">
+                  + Log New Decision
+                </button>
+              </div>
+            </div>
+
+            <div id="bm-decisions-list">
+              <p class="text-muted p-4 text-center">Loading decision log...</p>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════ 19. REPORTS & CSV EXPORT VIEW ═══════════════════════ -->
+          <div id="bm-view-reports" class="bm-section-view">
+            <div class="bm-view-header">
+              <div class="bm-view-title-wrap">
+                <h3>📑 Reports &amp; CSV Export</h3>
+                <p>Direct live data exports for accounting, inventory restocking, and customer auditing.</p>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-3 col-md-6 mb-3">
+                <div class="bm-panel p-4 text-center">
+                  <div style="font-size:2.4rem; margin-bottom:10px;">☕</div>
+                  <h5>Orders Report</h5>
+                  <p class="text-muted" style="font-size:0.84rem;">Detailed customer orders with items, amounts &amp; delivery.</p>
+                  <button type="button" class="bm-btn-primary btn-export-csv" data-type="orders">
+                    📥 Download Orders CSV
+                  </button>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-6 mb-3">
+                <div class="bm-panel p-4 text-center">
+                  <div style="font-size:2.4rem; margin-bottom:10px;">📦</div>
+                  <h5>Inventory Report</h5>
+                  <p class="text-muted" style="font-size:0.84rem;">Ingredient quantities, unit thresholds, and reorder levels.</p>
+                  <button type="button" class="bm-btn-primary btn-export-csv" data-type="inventory">
+                    📥 Download Inventory CSV
+                  </button>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-6 mb-3">
+                <div class="bm-panel p-4 text-center">
+                  <div style="font-size:2.4rem; margin-bottom:10px;">👥</div>
+                  <h5>Customers Report</h5>
+                  <p class="text-muted" style="font-size:0.84rem;">Patron list with total spend, order counts &amp; points.</p>
+                  <button type="button" class="bm-btn-primary btn-export-csv" data-type="customers">
+                    📥 Download Customers CSV
+                  </button>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-6 mb-3">
+                <div class="bm-panel p-4 text-center">
+                  <div style="font-size:2.4rem; margin-bottom:10px;">🥐</div>
+                  <h5>Menu Catalogue</h5>
+                  <p class="text-muted" style="font-size:0.84rem;">Complete active product pricing and descriptions in INR.</p>
+                  <button type="button" class="bm-btn-primary btn-export-csv" data-type="products">
+                    📥 Download Products CSV
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════ 20. SETTINGS VIEW ═══════════════════════ -->
+          <div id="bm-view-settings" class="bm-section-view">
+            <div class="bm-view-header">
+              <div class="bm-view-title-wrap">
+                <h3>⚙️ Store Settings &amp; Configuration</h3>
+                <p>Configure Mumbai delivery constraints, operating hours, and loyalty rules.</p>
+              </div>
+            </div>
+
+            <div class="bm-panel p-4" style="max-width:800px;">
+              <form id="bm-settings-form">
+                <h5 class="mb-3" style="color:#582f14; font-weight:700;">🕒 Café Operating Hours</h5>
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label>Opening Time</label>
+                    <input type="time" id="set-open-time" class="bm-form-control" value="08:00">
+                  </div>
+                  <div class="col-md-6">
+                    <label>Closing Time</label>
+                    <input type="time" id="set-close-time" class="bm-form-control" value="23:00">
+                  </div>
+                </div>
+
+                <h5 class="mb-3 mt-4" style="color:#582f14; font-weight:700;">🛵 Mumbai Delivery Engine</h5>
+                <div class="row mb-3">
+                  <div class="col-md-4">
+                    <label>Max Delivery Radius (km)</label>
+                    <input type="number" id="set-max-radius" class="bm-form-control" value="10" min="1" max="50">
+                  </div>
+                  <div class="col-md-4">
+                    <label>Base Delivery Fee (₹)</label>
+                    <input type="number" id="set-base-delivery-fee" class="bm-form-control" value="40" min="0">
+                  </div>
+                  <div class="col-md-4">
+                    <label>Free Delivery Threshold (₹)</label>
+                    <input type="number" id="set-free-threshold" class="bm-form-control" value="500" min="0">
+                  </div>
+                </div>
+
+                <h5 class="mb-3 mt-4" style="color:#582f14; font-weight:700;">🎁 Loyalty Rules</h5>
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label>Points Earn Rate (per ₹1 spent)</label>
+                    <input type="number" id="set-points-rate" class="bm-form-control" value="0.1" step="0.01">
+                    <small class="text-muted">0.1 = 1 point per ₹10 spent</small>
+                  </div>
+                </div>
+
+                <h5 class="mb-3 mt-4" style="color:#582f14; font-weight:700;">📞 Contact &amp; Support</h5>
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label>Store Email</label>
+                    <input type="email" id="set-contact-email" class="bm-form-control" value="contact@coffeeblend.in">
+                  </div>
+                  <div class="col-md-6">
+                    <label>Support Phone</label>
+                    <input type="text" id="set-contact-phone" class="bm-form-control" value="+91 98200 12345">
+                  </div>
+                </div>
+
+                <button type="submit" id="btn-save-settings" class="bm-btn-primary mt-3">
+                  Save Settings
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════ 21. ADMIN ACTIVITY LOG VIEW ═══════════════════════ -->
+          <div id="bm-view-activity" class="bm-section-view">
+            <div class="bm-view-header">
+              <div class="bm-view-title-wrap">
+                <h3>🛡️ Admin Activity Log</h3>
+                <p>Auditable, tamper-resistant trail of all administrative actions and parameter adjustments.</p>
+              </div>
+            </div>
+
+            <div class="bm-panel">
+              <div class="bm-table-responsive">
+                <table class="bm-table">
+                  <thead>
+                    <tr>
+                      <th>Timestamp (IST)</th>
+                      <th>Admin User</th>
+                      <th>Section</th>
+                      <th>Action Code</th>
+                      <th>Description</th>
+                      <th>IP Address</th>
+                    </tr>
+                  </thead>
+                  <tbody id="bm-activity-tbody">
+                    <tr><td colspan="6" class="text-center text-muted p-4">Loading audit logs...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
+
       </div>
     </section>
+
+    <!-- ═══════════════════════ MODALS ═══════════════════════ -->
+    <!-- Modal: New Product -->
+    <div id="modal-new-product" class="bm-modal-backdrop">
+      <div class="bm-modal-card">
+        <div class="bm-modal-header">
+          <h4>+ Add New Product to Menu</h4>
+          <button type="button" class="bm-modal-close">&times;</button>
+        </div>
+        <form id="form-new-product">
+          <div class="bm-modal-body">
+            <div class="bm-form-group">
+              <label>Product Name</label>
+              <input type="text" id="new-prod-name" class="bm-form-control" required placeholder="e.g. Hazelnut Nitro Cold Brew">
+            </div>
+            <div class="row">
+              <div class="col-md-6 bm-form-group">
+                <label>Category</label>
+                <select id="new-prod-category" class="bm-form-control">
+                  <option value="coffee">Coffee</option>
+                  <option value="drinks">Drinks &amp; Smoothies</option>
+                  <option value="desserts">Desserts</option>
+                  <option value="burgers">Burgers</option>
+                  <option value="dishes">Gourmet Mains</option>
+                </select>
+              </div>
+              <div class="col-md-6 bm-form-group">
+                <label>Price in INR (₹)</label>
+                <input type="number" id="new-prod-price" class="bm-form-control" required placeholder="220" min="10">
+              </div>
+            </div>
+            <div class="bm-form-group">
+              <label>Image Asset Path</label>
+              <input type="text" id="new-prod-image" class="bm-form-control" value="images/menu-1.jpg">
+            </div>
+            <div class="bm-form-group">
+              <label>Description</label>
+              <textarea id="new-prod-desc" class="bm-form-control" rows="3" placeholder="Tasting notes and ingredients..."></textarea>
+            </div>
+            <div class="form-check mt-2">
+              <input type="checkbox" class="form-check-input" id="new-prod-featured" checked>
+              <label class="form-check-label text-dark" for="new-prod-featured">Feature on homepage</label>
+            </div>
+          </div>
+          <div class="bm-modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="bm-modal">Cancel</button>
+            <button type="submit" class="bm-btn-primary">Add Product</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal: New Coupon -->
+    <div id="modal-new-coupon" class="bm-modal-backdrop">
+      <div class="bm-modal-card">
+        <div class="bm-modal-header">
+          <h4>+ Create Promotional Coupon</h4>
+          <button type="button" class="bm-modal-close">&times;</button>
+        </div>
+        <form id="form-new-coupon">
+          <div class="bm-modal-body">
+            <div class="bm-form-group">
+              <label>Coupon Code (e.g. BANDRA20)</label>
+              <input type="text" id="new-coupon-code" class="bm-form-control text-uppercase" required placeholder="BANDRA20">
+            </div>
+            <div class="bm-form-group">
+              <label>Description</label>
+              <input type="text" id="new-coupon-desc" class="bm-form-control" placeholder="20% OFF on all coffees">
+            </div>
+            <div class="row">
+              <div class="col-md-6 bm-form-group">
+                <label>Discount Type</label>
+                <select id="new-coupon-type" class="bm-form-control">
+                  <option value="percentage">Percentage (%)</option>
+                  <option value="fixed">Fixed INR Amount (₹)</option>
+                </select>
+              </div>
+              <div class="col-md-6 bm-form-group">
+                <label>Discount Value</label>
+                <input type="number" id="new-coupon-val" class="bm-form-control" required placeholder="20">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 bm-form-group">
+                <label>Minimum Order (₹)</label>
+                <input type="number" id="new-coupon-min" class="bm-form-control" value="250">
+              </div>
+              <div class="col-md-6 bm-form-group">
+                <label>Expiry Date</label>
+                <input type="date" id="new-coupon-expiry" class="bm-form-control" required>
+              </div>
+            </div>
+          </div>
+          <div class="bm-modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="bm-modal">Cancel</button>
+            <button type="submit" class="bm-btn-primary">Activate Coupon</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal: New Campaign -->
+    <div id="modal-new-campaign" class="bm-modal-backdrop">
+      <div class="bm-modal-card">
+        <div class="bm-modal-header">
+          <h4>+ Create Marketing Campaign</h4>
+          <button type="button" class="bm-modal-close">&times;</button>
+        </div>
+        <form id="form-new-campaign">
+          <div class="bm-modal-body">
+            <div class="bm-form-group">
+              <label>Campaign Title</label>
+              <input type="text" id="new-cmp-name" class="bm-form-control" required placeholder="Weekend Monsoon Cold Brew Special">
+            </div>
+            <div class="row">
+              <div class="col-md-6 bm-form-group">
+                <label>Channel</label>
+                <select id="new-cmp-channel" class="bm-form-control">
+                  <option value="Email">Email</option>
+                  <option value="In-App Banner">In-App Banner</option>
+                  <option value="SMS Notification">SMS Notification</option>
+                </select>
+              </div>
+              <div class="col-md-6 bm-form-group">
+                <label>Target Audience Segment</label>
+                <select id="new-cmp-audience" class="bm-form-control">
+                  <option value="All Registered Customers">All Registered Customers</option>
+                  <option value="High Spenders (Spent > ₹500)">High Spenders (Spent > ₹500)</option>
+                  <option value="Inactive Customers (> 30 days)">Inactive Customers (> 30 days)</option>
+                  <option value="Loyalty Point Holders (> 20 pts)">Loyalty Point Holders (> 20 pts)</option>
+                </select>
+              </div>
+            </div>
+            <div class="bm-form-group">
+              <label>Subject Line</label>
+              <input type="text" id="new-cmp-subject" class="bm-form-control" required placeholder="Brewing something special this weekend in Bandra!">
+            </div>
+            <div class="bm-form-group">
+              <label>Discount Coupon Code (Optional)</label>
+              <input type="text" id="new-cmp-coupon" class="bm-form-control text-uppercase" placeholder="WELCOME50">
+            </div>
+            <div class="bm-form-group">
+              <label>Campaign Content / Message</label>
+              <textarea id="new-cmp-content" class="bm-form-control" rows="4" required placeholder="Warm regards from the CoffeeBlend team..."></textarea>
+            </div>
+          </div>
+          <div class="bm-modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="bm-modal">Cancel</button>
+            <button type="submit" class="bm-btn-primary">Save Campaign Draft</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal: New Roadmap Feature -->
+    <div id="modal-new-roadmap" class="bm-modal-backdrop">
+      <div class="bm-modal-card">
+        <div class="bm-modal-header">
+          <h4>+ Add Roadmap Feature</h4>
+          <button type="button" class="bm-modal-close">&times;</button>
+        </div>
+        <form id="form-new-roadmap">
+          <div class="bm-modal-body">
+            <div class="bm-form-group">
+              <label>Feature Title</label>
+              <input type="text" id="new-rd-title" class="bm-form-control" required placeholder="e.g. PhonePe Instant QR Counter Checkout">
+            </div>
+            <div class="bm-form-group">
+              <label>Description &amp; User Benefit</label>
+              <textarea id="new-rd-desc" class="bm-form-control" rows="3" placeholder="Enables rapid UPI QR payment at counter pickup..."></textarea>
+            </div>
+            <div class="row">
+              <div class="col-md-6 bm-form-group">
+                <label>Category</label>
+                <select id="new-rd-category" class="bm-form-control">
+                  <option value="Ordering &amp; Menu">Ordering &amp; Menu</option>
+                  <option value="Delivery &amp; Mumbai Logistics">Delivery &amp; Mumbai Logistics</option>
+                  <option value="Loyalty &amp; Rewards">Loyalty &amp; Rewards</option>
+                  <option value="In-Store Experience">In-Store Experience</option>
+                  <option value="Operations &amp; Kitchen">Operations &amp; Kitchen</option>
+                  <option value="Mobile &amp; Web Experience">Mobile &amp; Web Experience</option>
+                </select>
+              </div>
+              <div class="col-md-6 bm-form-group">
+                <label>Priority</label>
+                <select id="new-rd-priority" class="bm-form-control">
+                  <option value="Critical">Critical</option>
+                  <option value="High" selected>High</option>
+                  <option value="Medium">Medium</option>
+                  <option value="Low">Low</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 bm-form-group">
+                <label>Target Milestone</label>
+                <input type="text" id="new-rd-milestone" class="bm-form-control" value="Q2 2025">
+              </div>
+              <div class="col-md-4 bm-form-group">
+                <label>Owner</label>
+                <input type="text" id="new-rd-owner" class="bm-form-control" value="Product Team">
+              </div>
+              <div class="col-md-4 bm-form-group">
+                <label>Status</label>
+                <select id="new-rd-status" class="bm-form-control">
+                  <option value="Backlog">Backlog</option>
+                  <option value="Planned" selected>Planned</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Testing">Testing</option>
+                  <option value="Released">Released</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="bm-modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="bm-modal">Cancel</button>
+            <button type="submit" class="bm-btn-primary">Add to Roadmap</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal: New Customer Problem -->
+    <div id="modal-new-problem" class="bm-modal-backdrop">
+      <div class="bm-modal-card">
+        <div class="bm-modal-header">
+          <h4>+ Log Customer Problem</h4>
+          <button type="button" class="bm-modal-close">&times;</button>
+        </div>
+        <form id="form-new-problem">
+          <div class="bm-modal-body">
+            <div class="bm-form-group">
+              <label>Problem Statement</label>
+              <input type="text" id="new-pb-title" class="bm-form-control" required placeholder="e.g. Oat milk unavailable during evening rush">
+            </div>
+            <div class="bm-form-group">
+              <label>Detailed Friction Context</label>
+              <textarea id="new-pb-desc" class="bm-form-control" rows="3" required placeholder="Customer reports dairy alternatives running out after 7 PM..."></textarea>
+            </div>
+            <div class="row">
+              <div class="col-md-6 bm-form-group">
+                <label>Customer Segment</label>
+                <select id="new-pb-segment" class="bm-form-control">
+                  <option value="Daily Commuters">Daily Commuters</option>
+                  <option value="Remote Workers / Freelancers">Remote Workers / Freelancers</option>
+                  <option value="Weekend Brunch Visitors">Weekend Brunch Visitors</option>
+                  <option value="High-Spender VIPs">High-Spender VIPs</option>
+                  <option value="First-Time Web Visitors">First-Time Web Visitors</option>
+                  <option value="All Customers" selected>All Customers</option>
+                </select>
+              </div>
+              <div class="col-md-6 bm-form-group">
+                <label>Severity</label>
+                <select id="new-pb-severity" class="bm-form-control">
+                  <option value="Critical">Critical</option>
+                  <option value="Major" selected>Major</option>
+                  <option value="Minor">Minor</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 bm-form-group">
+                <label>Frequency</label>
+                <select id="new-pb-frequency" class="bm-form-control">
+                  <option value="High">High</option>
+                  <option value="Medium" selected>Medium</option>
+                  <option value="Low">Low</option>
+                </select>
+              </div>
+              <div class="col-md-6 bm-form-group">
+                <label>Affected Journey</label>
+                <select id="new-pb-journey" class="bm-form-control">
+                  <option value="Discovery &amp; Menu">Discovery &amp; Menu</option>
+                  <option value="Cart &amp; Customizations">Cart &amp; Customizations</option>
+                  <option value="Checkout &amp; Mumbai Delivery">Checkout &amp; Mumbai Delivery</option>
+                  <option value="Payment (UPI / PayPal)">Payment (UPI / PayPal)</option>
+                  <option value="Advance Order Pickup">Advance Order Pickup</option>
+                  <option value="Loyalty Rewards">Loyalty Rewards</option>
+                </select>
+              </div>
+            </div>
+            <div class="bm-form-group">
+              <label>Evidence Source</label>
+              <select id="new-pb-source" class="bm-form-control">
+                <option value="Customer Reviews">Customer Reviews</option>
+                <option value="Support Feedback">Support Feedback</option>
+                <option value="Social Media / Google Maps">Social Media / Google Maps</option>
+                <option value="In-Store Barista Observations">In-Store Barista Observations</option>
+                <option value="Analytics Drop-Off">Analytics Drop-Off</option>
+              </select>
+            </div>
+          </div>
+          <div class="bm-modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="bm-modal">Cancel</button>
+            <button type="submit" class="bm-btn-primary">Log Problem</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal: New Feature Prioritization (RICE) -->
+    <div id="modal-new-prioritization" class="bm-modal-backdrop">
+      <div class="bm-modal-card">
+        <div class="bm-modal-header">
+          <h4>+ Add Feature for Prioritization (RICE)</h4>
+          <button type="button" class="bm-modal-close">&times;</button>
+        </div>
+        <form id="form-new-prioritization">
+          <div class="bm-modal-body">
+            <div class="bm-form-group">
+              <label>Feature Idea Name</label>
+              <input type="text" id="new-rice-name" class="bm-form-control" required placeholder="e.g. WhatsApp Order Status Alerts">
+            </div>
+            <div class="bm-form-group">
+              <label>Description</label>
+              <textarea id="new-rice-desc" class="bm-form-control" rows="2" placeholder="Ping customer when beverage is ready..."></textarea>
+            </div>
+            <div class="row">
+              <div class="col-md-6 bm-form-group">
+                <label>Reach (Customers affected / quarter)</label>
+                <input type="number" id="new-rice-reach" class="bm-form-control" value="600" min="10" required>
+              </div>
+              <div class="col-md-6 bm-form-group">
+                <label>Impact Factor</label>
+                <select id="new-rice-impact" class="bm-form-control">
+                  <option value="0.25">0.25 - Minimal</option>
+                  <option value="0.5">0.5 - Low</option>
+                  <option value="1" selected>1.0 - Medium</option>
+                  <option value="2">2.0 - High</option>
+                  <option value="3">3.0 - Massive</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 bm-form-group">
+                <label>Confidence Factor</label>
+                <select id="new-rice-confidence" class="bm-form-control">
+                  <option value="0.5">50% - Low Confidence</option>
+                  <option value="0.8" selected>80% - Medium Confidence</option>
+                  <option value="1.0">100% - High Confidence</option>
+                </select>
+              </div>
+              <div class="col-md-6 bm-form-group">
+                <label>Effort (Sprint Person-Weeks)</label>
+                <input type="number" id="new-rice-effort" class="bm-form-control" value="1.5" step="0.5" min="0.5" max="20" required>
+              </div>
+            </div>
+          </div>
+          <div class="bm-modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="bm-modal">Cancel</button>
+            <button type="submit" class="bm-btn-primary">Calculate &amp; Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal: New Product Goal -->
+    <div id="modal-new-goal" class="bm-modal-backdrop">
+      <div class="bm-modal-card">
+        <div class="bm-modal-header">
+          <h4>+ Add Product Goal / KPI</h4>
+          <button type="button" class="bm-modal-close">&times;</button>
+        </div>
+        <form id="form-new-goal">
+          <div class="bm-modal-body">
+            <div class="bm-form-group">
+              <label>Metric Name</label>
+              <input type="text" id="new-goal-metric" class="bm-form-control" required placeholder="e.g. Monthly Repeat Customers">
+            </div>
+            <div class="row">
+              <div class="col-md-4 bm-form-group">
+                <label>Baseline Value</label>
+                <input type="text" id="new-goal-baseline" class="bm-form-control" required placeholder="18%">
+              </div>
+              <div class="col-md-4 bm-form-group">
+                <label>Current Value</label>
+                <input type="text" id="new-goal-current" class="bm-form-control" required placeholder="24%">
+              </div>
+              <div class="col-md-4 bm-form-group">
+                <label>Target Value</label>
+                <input type="text" id="new-goal-target" class="bm-form-control" required placeholder="35%">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 bm-form-group">
+                <label>Timeframe</label>
+                <input type="text" id="new-goal-timeframe" class="bm-form-control" value="Q2 2025">
+              </div>
+              <div class="col-md-6 bm-form-group">
+                <label>Owner</label>
+                <input type="text" id="new-goal-owner" class="bm-form-control" value="Retention PM">
+              </div>
+            </div>
+            <div class="bm-form-group">
+              <label>Status</label>
+              <select id="new-goal-status" class="bm-form-control">
+                <option value="On Track">On Track</option>
+                <option value="At Risk">At Risk</option>
+                <option value="Behind">Behind</option>
+                <option value="Achieved">Achieved</option>
+              </select>
+            </div>
+          </div>
+          <div class="bm-modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="bm-modal">Cancel</button>
+            <button type="submit" class="bm-btn-primary">Save Goal</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal: New Decision -->
+    <div id="modal-new-decision" class="bm-modal-backdrop">
+      <div class="bm-modal-card">
+        <div class="bm-modal-header">
+          <h4>+ Log Product Decision</h4>
+          <button type="button" class="bm-modal-close">&times;</button>
+        </div>
+        <form id="form-new-decision">
+          <div class="bm-modal-body">
+            <div class="bm-form-group">
+              <label>Decision Title</label>
+              <input type="text" id="new-dec-title" class="bm-form-control" required placeholder="e.g. Switch to Barista Oat Milk standard">
+            </div>
+            <div class="bm-form-group">
+              <label>Context &amp; Background</label>
+              <textarea id="new-dec-context" class="bm-form-control" rows="2" required placeholder="Increased demand for non-dairy specialty brews..."></textarea>
+            </div>
+            <div class="bm-form-group">
+              <label>Supporting Evidence</label>
+              <textarea id="new-dec-evidence" class="bm-form-control" rows="2" required placeholder="Customer surveys and sensory tastings..."></textarea>
+            </div>
+            <div class="bm-form-group">
+              <label>Alternatives Considered</label>
+              <textarea id="new-dec-alts" class="bm-form-control" rows="2" required placeholder="Option A vs Option B..."></textarea>
+            </div>
+            <div class="bm-form-group">
+              <label>Chosen Decision</label>
+              <textarea id="new-dec-chosen" class="bm-form-control" rows="2" required placeholder="Selected Barista Edition brand..."></textarea>
+            </div>
+            <div class="bm-form-group">
+              <label>Expected Outcome</label>
+              <textarea id="new-dec-outcome" class="bm-form-control" rows="2" required placeholder="Higher customer retention and higher specialty margin..."></textarea>
+            </div>
+            <div class="bm-form-group">
+              <label>Owner</label>
+              <input type="text" id="new-dec-owner" class="bm-form-control" value="Product Lead">
+            </div>
+          </div>
+          <div class="bm-modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="bm-modal">Cancel</button>
+            <button type="submit" class="bm-btn-primary">Record Decision</button>
+          </div>
+        </form>
+      </div>
+    </div>
 
     <!-- FOOTER -->
     <footer class="ftco-footer ftco-section img" style="background:#0d0d0d; padding: 60px 0 30px;">
@@ -238,7 +1963,7 @@
         <div class="row">
           <div class="col-md-12 text-center">
             <p style="color:#666; font-size:0.85rem;">
-              Copyright &copy;<script>document.write(new Date().getFullYear());</script> CoffeeBlend. All rights reserved.
+              Copyright &copy;<script>document.write(new Date().getFullYear());</script> CoffeeBlend Mumbai. All rights reserved.
             </p>
           </div>
         </div>
@@ -249,150 +1974,145 @@
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/api.js"></script>
+    <script src="js/business-management.js"></script>
     <script>
-    (function() {
-      
-      var BASE = 'https://coffeeblend-gkhy.onrender.com/api';
-
+    $(document).ready(function() {
       // AUTH GUARD
-      var token = localStorage.getItem('cb_token');
-      if (!token) {
-        alert('Please login to continue');
-        window.location.href = 'login.html';
+      if (!API.auth.isLoggedIn()) {
+        API.showAlert('Please log in to view your profile', 'error');
+        setTimeout(function() { window.location.href = 'login.html'; }, 1500);
         return;
       }
 
-      // NAVBAR
-      function cbUpdateNavbar() {
-        var userRaw = localStorage.getItem('cb_user');
-        var loginItem    = document.getElementById('nav-login-item');
-        var registerItem = document.getElementById('nav-register-item');
-        var userDropdown = document.getElementById('nav-user-dropdown');
-        var usernameDisp = document.getElementById('cb-username-display');
-        if (token && userRaw) {
-          try {
-            var u = JSON.parse(userRaw);
-            if (usernameDisp) usernameDisp.textContent = u.name || u.username || 'User';
-          } catch(e) {}
-          if (loginItem)    loginItem.style.display    = 'none';
-          if (registerItem) registerItem.style.display = 'none';
-          if (userDropdown) userDropdown.style.display = '';
-        }
-      }
-
-      function cbInitDropdown() {
-        var toggle = document.getElementById('cb-user-menu');
-        var menu   = document.querySelector('.cb-user-dropdown-menu');
-        if (!toggle || !menu) return;
-        toggle.addEventListener('click', function(e) {
-          e.preventDefault(); e.stopPropagation();
-          var open = menu.classList.contains('show');
-          menu.classList.toggle('show', !open);
-          toggle.setAttribute('aria-expanded', !open);
-        });
-        document.addEventListener('click', function(e) {
-          if (!toggle.contains(e.target) && !menu.contains(e.target)) {
-            menu.classList.remove('show');
-          }
-        });
-        document.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape') menu.classList.remove('show');
-        });
-        document.querySelectorAll('.cb-logout-btn').forEach(function(btn) {
-          btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            localStorage.removeItem('cb_token');
-            localStorage.removeItem('cb_user');
-            localStorage.removeItem('cb_cart');
-            window.location.href = 'index.html';
-          });
-        });
-      }
-
       function statusBadge(s) {
-        var map = { pending:'cb-badge-pending', confirmed:'cb-badge-confirmed', preparing:'cb-badge-preparing', delivered:'cb-badge-delivered', cancelled:'cb-badge-cancelled' };
-        return '<span class="cb-badge ' + (map[s]||'cb-badge-pending') + '">' + s + '</span>';
+        var map = { pending:'cb-badge-pending', confirmed:'cb-badge-confirmed', preparing:'cb-badge-preparing', delivered:'cb-badge-delivered', completed:'cb-badge-completed', cancelled:'cb-badge-cancelled' };
+        return '<span class="cb-badge ' + (map[s]||'cb-badge-pending') + '">' + (s||'pending') + '</span>';
       }
 
       function fmtDate(d) {
+        if (!d) return '—';
         return new Date(d).toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' });
       }
 
       function loadProfile() {
-        // Get user from localStorage
-        var userRaw = localStorage.getItem('cb_user');
-        var user = {};
-        try { user = JSON.parse(userRaw) || {}; } catch(e) {}
+        API.auth.me().then(function(res) {
+          $('#cb-loading').hide();
+          $('#cb-content').show();
 
-        var name = user.username || user.name || 'User';
-        document.getElementById('cb-avatar').textContent = name.charAt(0).toUpperCase();
-        document.getElementById('cb-name').textContent   = name;
-        document.getElementById('cb-email').textContent  = user.email || '—';
+          if (res.success && res.user) {
+            var u = res.user;
+            var name = u.username || 'User';
+            $('#cb-avatar').text(name.charAt(0).toUpperCase());
+            $('#cb-name').text(name);
+            $('#cb-email').text(u.email || '—');
+            $('#cb-since').text(fmtDate(u.createdAt));
 
-        // Get full user from /me
-        fetch(BASE + '/auth/me', { headers: { 'Authorization': 'Bearer ' + token } })
-          .then(function(r){ return r.json(); })
-          .then(function(res) {
-            if (res.success && res.user) {
-              var u = res.user;
-              var n = u.username || u.name || 'User';
-              document.getElementById('cb-avatar').textContent = n.charAt(0).toUpperCase();
-              document.getElementById('cb-name').textContent   = n;
-              document.getElementById('cb-email').textContent  = u.email || '—';
-              document.getElementById('cb-since').textContent  = fmtDate(u.createdAt || Date.now());
+            $('#prof-username').val(u.username || '');
+            $('#prof-phone').val(u.phone || '');
+            $('#prof-address').val(u.address || '');
+            $('#prof-city').val(u.city || 'Mumbai');
+            $('#prof-pincode').val(u.pincode || '');
+
+            // Load Loyalty points
+            API.loyalty.getBalance().then(function(lRes) {
+              if (lRes && lRes.success) {
+                $('#cb-loyalty-pts').text(lRes.points || 0);
+              }
+            }).catch(function() {});
+
+            // STRICT AUTHORIZATION CHECK:
+            // Only securely authorized administrator accounts (role: 'admin' or designated admin email)
+            // see and can open Business Management.
+            var isAdmin = (u.role === 'admin') || (u.email && u.email.toLowerCase() === 'kumar162339@gmail.com');
+            if (isAdmin) {
+              $('#cb-admin-entry-section').show();
+            } else {
+              $('#cb-admin-entry-section').hide();
             }
-          }).catch(function(){});
+          }
+        }).catch(function() {
+          $('#cb-loading').hide();
+          $('#cb-content').show();
+        });
 
-        // Load orders
-        fetch(BASE + '/orders/my-orders', { headers: { 'Authorization': 'Bearer ' + token } })
-          .then(function(r){ return r.json(); })
-          .then(function(res) {
-            document.getElementById('cb-loading').style.display = 'none';
-            document.getElementById('cb-content').style.display = '';
+        // Load recent orders
+        API.orders.myOrders().then(function(res) {
+          var orders = (res.success && res.orders) ? res.orders : [];
+          $('#cb-total-orders').text(orders.length);
 
-            var orders = (res.success && res.orders) ? res.orders : [];
-            document.getElementById('cb-total-orders').textContent = orders.length;
+          var totalSpent = orders.reduce(function(s, o) {
+            return s + (parseFloat(o.totalAmount) || 0);
+          }, 0);
+          $('#cb-total-spent').text(API.formatINR(totalSpent));
 
-            var totalSpent = orders.reduce(function(s,o){ return s + (o.totalAmount||0); }, 0);
-            document.getElementById('cb-total-spent').textContent = '$' + totalSpent.toFixed(2);
+          var container = $('#cb-orders-list');
+          if (orders.length === 0) {
+            container.html(
+              '<div class="cb-empty">' +
+                '<div class="cb-empty-icon">☕</div>' +
+                '<div>No orders placed yet. <a href="menu.html">Browse our menu!</a></div>' +
+              '</div>'
+            );
+            return;
+          }
 
-            if (orders.length > 0) {
-              document.getElementById('cb-last-order').textContent = fmtDate(orders[0].createdAt);
-            }
+          var html = '';
+          orders.slice(0, 5).forEach(function(o) {
+            var itemsSummary = (o.items || []).map(function(i) {
+              return i.name + ' x' + i.quantity;
+            }).join(', ');
 
-            var container = document.getElementById('cb-orders-list');
-            if (orders.length === 0) {
-              container.innerHTML = '<div class="cb-empty"><div class="cb-empty-icon">☕</div><div>No orders yet. <a href="menu.html">Start ordering!</a></div></div>';
-              return;
-            }
-
-            var html = '';
-            orders.slice(0,5).forEach(function(o) {
-              var itemNames = (o.items||[]).map(function(i){ return i.name + ' x' + i.quantity; }).join(', ');
-              html += '<div class="cb-order-row">'
-                + '<div><div class="cb-order-id">#' + o._id.slice(-8).toUpperCase() + '</div>'
-                + '<div class="cb-order-name">' + (itemNames || 'Order items') + '</div>'
-                + '<div class="cb-order-date">' + fmtDate(o.createdAt) + '</div></div>'
-                + '<div style="text-align:right;">'
-                + '<div class="cb-order-total">$' + (o.totalAmount||0).toFixed(2) + '</div>'
-                + '<div style="margin-top:6px;">' + statusBadge(o.status||'pending') + '</div></div>'
-                + '</div>';
-            });
-            container.innerHTML = html;
-          })
-          .catch(function() {
-            document.getElementById('cb-loading').style.display = 'none';
-            document.getElementById('cb-content').style.display = '';
-            document.getElementById('cb-orders-list').innerHTML = '<div class="cb-empty"><div>Could not load orders. Please try again.</div></div>';
+            html += '<div class="cb-order-row">' +
+              '<div>' +
+                '<div class="cb-order-id">#' + o._id.slice(-8).toUpperCase() + '</div>' +
+                '<div class="cb-order-name">' + (itemsSummary || 'CoffeeBlend Items') + '</div>' +
+                '<div class="cb-order-date">' + fmtDate(o.createdAt) + '</div>' +
+              '</div>' +
+              '<div style="text-align:right;">' +
+                '<div class="cb-order-total">' + API.formatINR(o.totalAmount || 0) + '</div>' +
+                '<div style="margin-top:6px;">' + statusBadge(o.status || 'pending') + '</div>' +
+              '</div>' +
+            '</div>';
           });
+          container.html(html);
+        }).catch(function() {});
       }
 
-      document.addEventListener('DOMContentLoaded', function() {
-        cbUpdateNavbar();
-        cbInitDropdown();
-        loadProfile();
+      loadProfile();
+
+      /* ── SAVE PROFILE FORM ── */
+      $('#profile-form').on('submit', function(e) {
+        e.preventDefault();
+        var username = $('#prof-username').val().trim();
+        var phone = $('#prof-phone').val().trim();
+        var address = $('#prof-address').val().trim();
+        var city = $('#prof-city').val().trim();
+        var pincode = $('#prof-pincode').val().trim();
+
+        var btn = $('#btn-save-profile');
+        btn.prop('disabled', true).text('Saving...');
+
+        API.auth.updateProfile({
+          username: username,
+          phone: phone,
+          address: address,
+          city: city,
+          pincode: pincode
+        }).then(function(res) {
+          if (res.success) {
+            API.showAlert('Profile details updated successfully!');
+            $('#cb-name').text(res.user.username);
+            $('#cb-avatar').text(res.user.username.charAt(0).toUpperCase());
+          } else {
+            API.showAlert(res.message || 'Could not update profile', 'error');
+          }
+          btn.prop('disabled', false).text('Save Changes');
+        }).catch(function() {
+          API.showAlert('Server error updating profile', 'error');
+          btn.prop('disabled', false).text('Save Changes');
+        });
       });
-    })();
+    });
     </script>
   </body>
 </html>
